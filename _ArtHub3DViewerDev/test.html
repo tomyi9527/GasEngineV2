@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>ArtHub Model Viewer</title>
+        <style>
+            .main
+            {
+                text-align: center;
+                background-color: #ff0000;
+                border-radius: 0px;
+                border: 4px dotted blue;
+                width: 80%;
+                height: 80%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                padding: 5px;
+                display: flex;
+                flex-direction: row;
+            }
+
+            .leftchild
+            {
+                text-align: center;
+                background-color: #ffffff;
+                border-radius: 0px;
+                width: calc(100% - 180px);
+                height: 100%;        
+                padding: 0px;
+            }
+
+            .rightchild
+            {
+                text-align: center;
+                background-color: #00ff00;
+                border-radius: 0px;
+                width: 180px;
+                height: 100%;        
+                padding: 0px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden overlay;
+            }
+            .rightchild .subchild
+            {
+                width: 90%;
+                height: 25px;
+                margin-top: 5px;
+            }
+
+            .timeline
+            {
+                position:absolute; 
+                left:60px; 
+                bottom:50px; 
+                height:30px; 
+                right:200px; 
+                z-index:2;
+                display: none;
+            }
+
+            .background
+            {
+                box-sizing: border-box; 
+                display:flex;
+                transition:all 200ms ease-out; 
+                position:absolute; 
+                left:50%; 
+                transform:translate(-50%,0); 
+                width:100%; 
+                height:100%; 
+                background:rgba(0,0,0,.75); 
+                padding:3px; 
+                border-radius:30px; 
+                max-width:570px;
+            }
+
+            .track
+            {
+                flex:1; 
+                position:relative; 
+                top:8px; 
+                height:8px; 
+                cursor:pointer; 
+                margin: 0 5px; 
+                background:#434343; 
+                border-radius:8px; 
+                overflow:hidden
+            }
+
+            .bar
+            {
+                position:absolute;  
+                transform:scaleX(0.0); 
+                background:#1caad9; 
+                width:100%; 
+                height:8px; 
+                left:0; 
+                transform-origin:0 0;
+            }
+
+            .knob
+            {
+                display:none; 
+                left:52%; 
+                position:absolute; 
+                background:#FFFFFF; 
+                width:2px; 
+                height:100%; 
+                border-right: 1px 
+                solid rgba(0,0,0,.8); 
+                top:-1px; 
+                pointer-events:none;
+            }
+
+            .progress
+            {
+                display:block;
+                color:#FFFFFF; 
+                font-family:KaiTi; 
+                margin:0 10px 0 5px; 
+                padding:0; 
+                font-size:12px; 
+                line-height:24px; 
+                text-align:right;
+            }
+
+            .animationSwitch
+            {
+                padding:0 3px 0 9px; 
+                font-size:13px; 
+                line-height:23px; 
+                color:#efefef; 
+                cursor:pointer; 
+                text-decoration:none; 
+                font-family:fontawesome;
+            }
+
+            .testImg {
+                width: 160px;
+                height: 80px;
+                margin: 10px;
+            }
+
+            .inputWrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                width: 90%;
+                height: 25px;
+                margin-top: 5px;
+            }
+            .customInput {
+                width: 50%;
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="main">
+
+            <div id="3D_VIEWER_CONTAINER" class="leftchild"> 
+                <div id='timeline' class="timeline">
+                    <div class="background">
+                        <div id="ANI_TRACK" class="track">
+                            <div id="ANI_BAR" class="bar"></div>
+                            <div id="ANI_KNOB" class="knob"></div>
+                        </div>
+                        <p id="ANI_TIME_TXT" class="progress">00:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rightchild">
+
+                <div class="inputWrapper">
+                    <span>模型索引</span>
+                    <input class='customInput' id='modelIndex' type="number" value=0>
+                </div>
+                <div class="inputWrapper">
+                    <span>加载格式</span>
+                    <input class='customInput' id='modelFormat' type="text" value="gas2">
+                </div>
+
+                <button class= "subchild" type="button" onclick="onLoad()">Load</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(1)">UV Layout</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(2)">Topology</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(3)">T-Pose</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(4)">Skeleton</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(5)">Standard</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(6)">Albedo</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(7)">Normals</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(25)">Light</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(26)">Metal</button>
+
+                <button id="ANI_PLAY_BTN" class= "subchild" type="button" onclick="onRendererDelegate(8)">Stop</button>
+                <button id="setLoopMode" class= "subchild" type="button" onclick="onRendererDelegate(14)">设置循环模式</button>
+                <button id="getClips" class= "subchild" type="button" onclick="onRendererDelegate(13)">获取动画列表</button>
+                <button id="setActiveClip" class= "subchild" type="button" onclick="onRendererDelegate(15)">切换动画</button>
+                <button id="setActiveClip" class= "subchild" type="button" onclick="onRendererDelegate(16)">切换动画速度</button>
+
+                <button id="screenCapture" class= "subchild" type="button" onclick="onRendererDelegate(9)">截取封面图</button>
+                <button id="recordCapture" class= "subchild" type="button" onclick="onRendererDelegate(10)">录制封面</button>
+                <button id="setInitPos" class= "subchild" type="button" onclick="onRendererDelegate(11)">设置初始位置</button>
+                <button id="hotspotMode" class= "subchild" type="button" onclick="onRendererDelegate(12)">添加讨论点</button>
+                <img id='coverImage' class="testImg"></img>
+                <img id='screenImg' class="testImg"></img>
+                <span id='fileProgress'>加载进度：-/-</span>
+
+                <!-- <hr style="width: 100%;">
+                <button class= "subchild" type="button" onclick="onRendererDelegate(17)">删除当前模型</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(18)">获取场景信息</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(19)">销毁引擎</button> -->
+
+                <hr style="width: 100%;">
+                <button class= "subchild" type="button" onclick="onRendererDelegate(20)">获取背景信息</button>
+                <button class= "subchild" type="button" onclick="onRendererDelegate(21)">设置背景信息</button>
+
+                <button id="hotspotMode" class= "subchild" type="button" onclick="onRendererDelegate(22)">增大骨骼</button>
+                <button id="hotspotMode" class= "subchild" type="button" onclick="onRendererDelegate(23)">缩小骨骼</button>
+                <button id="hotspotMode" class= "subchild" type="button" onclick="onRendererDelegate(24)">设置随机线框颜色</button>
+
+            </div>
+
+        </div>
+
+        <!-- <script src='arthub-3d-viewer.js' type='text/javascript'></script> -->
+        <script src='./dist/arthub-3d-viewer.js' type='text/javascript'></script>
+        <script type="text/javascript">
+            var container = document.getElementById("3D_VIEWER_CONTAINER");
+            const options = {
+                container,
+            }
+            var arthub3DViewer = new GasEngine.ArtHub3DViewer(options);
+            arthub3DViewer.init();
+            var arthubScene;
+            arthub3DViewer.initEngine()
+                .then(()=>arthub3DViewer.createScene())
+                .then((scene) => arthubScene = scene);
+            var fileProgressSpan = document.getElementById('fileProgress');
+            arthub3DViewer.addCallback('fileLoaded', (data) => {
+                fileProgressSpan.innerHTML = `加载进度：${data.count}/${data.total}`;
+            });
+
+            var coverImage = document.getElementById('coverImage');
+            arthub3DViewer.addCallback('shoted', (data) => { 
+                if(data.image) {
+                    coverImage.src = data.coverImage;
+                }
+                else if (typeof data.cameraParam === 'string')
+                {
+                    data.cameraParam = JSON.parse(data.cameraParam);
+                    arthub3DViewer.getAssembleConfigurations()
+                    .then(configurations => {
+                        const scene = configurations.scene || {};
+                        if (scene && scene.hasOwnProperty('cameras'))
+                        {
+                            scene.cameras.default = data.cameraParam;
+                        }
+                        else
+                        {
+                            scene.cameras = { default: data.cameraParam };
+                        }
+                        console.log('setScene: ', scene);
+                    })
+                }
+            });
+
+            var screenImg = document.getElementById('screenImg');
+            arthub3DViewer.addCallback('captureGifFinished', (data) => { 
+                if (data.type === 'finish') {
+                    let url = URL.createObjectURL(data.blob);
+                    screenImg.src = url;
+                }
+            });
+            // arthub3DViewer.addCallback('OnTime', (parameters) => { console.log(parameters); });           
+            arthub3DViewer.addCallback('hotspotAdded', (data) => { console.log(data); });
+
+            // animation
+            var animationTimeline = document.getElementById('timeline');
+            var animationTrack = document.getElementById("ANI_TRACK");
+            var animationBar = document.getElementById("ANI_BAR");
+            var animationTimeText = document.getElementById("ANI_TIME_TXT");
+            var animationMouseDownFlag = false;
+            if (animationTrack)
+            {
+                animationTrack.addEventListener("mousedown", animationMouseDown.bind(this));
+            }
+
+            function setAnimationTimeline(hasAnimation)
+            {
+                animationTimeline.style.display = hasAnimation ? 'block' : 'none';
+            }
+
+            arthub3DViewer.addCallback('animationLoaded', (data) => {
+                setAnimationTimeline(true);
+            });
+
+            var currentClipIndex;
+            function animationMouseDown(event)
+            {
+                if (event.button == 0)
+                {
+                    animationMouseDownFlag = true;
+                    let trackLeft = animationTrack.getBoundingClientRect().left;
+                    let MouseLeft = event.clientX;
+                    let trackWidth = animationTrack.getBoundingClientRect().width;
+                    trackWidth = trackWidth == 0 ? 1 : trackWidth;
+                    let progress = (MouseLeft - trackLeft) / trackWidth;
+
+                    arthub3DViewer.setClipProgress(progress);
+        
+                    animationTrack.addEventListener("mousemove", animationMouseMove.bind(this));
+                    animationTrack.addEventListener("mouseup", animationMouseUp.bind(this));
+                }
+            };
+
+            function animationMouseMove(event)
+            {
+                var rect1 = animationTrack.getBoundingClientRect();                
+                if(animationMouseDownFlag)
+                {
+                    let trackLeft = rect1.left;
+
+                    let MouseLeft = event.clientX;
+                    
+                    let trackWidth = rect1.width;
+                    trackWidth = trackWidth == 0 ? 1 : trackWidth;
+                    var deltaLength = MouseLeft - trackLeft;
+                    var deltaLength = Math.min(Math.max(deltaLength, 0), trackWidth);
+                    let progress = deltaLength / trackWidth;
+
+                    arthub3DViewer.setClipProgress(progress);
+                }
+            };
+
+            function animationMouseUp(event)
+            {
+                if(event.button == 0)
+                {
+                    animationMouseDownFlag = false;
+                
+                    animationTrack.removeEventListener("mousemove", animationMouseMove.bind(this));
+                    animationTrack.removeEventListener("mouseup", animationMouseUp.bind(this));
+                }
+            };
+
+            function addZero(str, length)
+            {
+                return new Array(length - str.length + 1).join("0") + str;
+            };
+            
+            arthub3DViewer.addCallback('animationProgress', (data) => { 
+                if (animationBar)
+                {
+                    const animationProgress = data.progress;
+                    let transform = `scaleX(${animationProgress})`;
+                    animationBar.style.transform = transform;
+                }    
+
+                if (animationTimeText)
+                {
+                    const animationLocalTime = data.localTime;
+                    let sec = Math.floor(animationLocalTime);
+                    let ms = Math.floor((animationLocalTime - sec) * 100);
+                    animationTimeText.innerHTML = addZero(sec.toString(), 2) + ':' + addZero(ms.toString(), 2);
+                }
+            });
+            // var showUVLayoutFlag = false;
+            // function onShowUVLayout()
+            // {
+            //     showUVLayoutFlag = !showUVLayoutFlag;
+            //     arthub3DViewer.showUVLayout(showUVLayoutFlag).then
+            //     (
+            //         function(value)
+            //         {
+            //             console.log(value);
+            //         }
+            //     )
+            //     .catch
+            //     (
+            //         function(value)
+            //         {
+            //             console.log('Timeout: ' + value);
+            //         }
+            //     );
+            // }
+
+            // var showTopologyFlag = false;
+            // function onShowTopology()
+            // {
+            //     showTopologyFlag = !showTopologyFlag;
+            //     arthub3DViewer.showTopology(showTopologyFlag).then
+            //     (
+            //         function(value)
+            //         {
+            //             console.log(value);
+            //         }
+            //     )
+            //     .catch
+            //     (
+            //         function(value)
+            //         {
+            //             console.log('Timeout: ' + value);
+            //         }
+            //     );
+            // }
+
+            let showUVLayoutFlag = false;
+            let showTopologyFlag = false;
+            let skinningFlag = true;
+            let showSkeletonFlag = false;
+            let viewMode = 0;
+            let enableAnimationFlag = true;
+            let animationLoopModeIndex = 0;
+            let animationLoopModeList = ['Loop', 'Repeat', 'Once', 'Shuffle'];
+            let animationSpeedFactor = 1.0;
+            let animationClipIndex = 0;
+            let animationClips = [];
+            let recordFrame = false;
+
+            let backgroundParams = [
+                {
+                    type: 'SOLIDCOLOR',
+                    backgroundColor: '#ffffff'
+                },
+                {
+                    type: 'IMAGE',
+                    backgroundImage: 'SYSTEM_GRAY_2.jpg'
+                },
+                {
+                    type: 'CUBEMAP',
+                    cubeMapName: '01_attic_room_with_windows',
+                    lightEnable: false,
+                    environmentBrightness: 0.6,
+                    environmentBlur: 1
+                }
+            ];
+            let backgroundImageIndex = -1;
+            let skeletonScale = 1.0;
+
+            let getRenderer = function() {
+                return  arthub3DViewer.getRenderer();
+            }
+            let getScene = function() {
+                return arthub3DViewer.getScene();
+            }
+            let getSkybox = function() {
+                return getScene()
+                    .then(scene => scene.getSkybox());
+            }
+
+            function onRendererDelegate(mode)
+            {
+                switch(mode)
+                {
+                    case 1: 
+                        showUVLayoutFlag = !showUVLayoutFlag; 
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.showUVLayout(showUVLayoutFlag); 
+                            })
+                        break;
+                    case 2: 
+                        showTopologyFlag = !showTopologyFlag;
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.showTopology(showTopologyFlag);
+                            })
+                        break;
+                    case 3: 
+                        skinningFlag = !skinningFlag;
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.showTPose(skinningFlag); 
+                            })
+                        break;
+                    case 4:
+                        showSkeletonFlag = !showSkeletonFlag;
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.showSkeleton(showSkeletonFlag);
+                            })
+                        break;
+                    case 5: case 6: case 7:
+                        viewMode = mode - 5;
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.changeRenderMode(viewMode);
+                            })
+                        break;
+                    case 25:
+                        viewMode = 3;
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.changeRenderMode(viewMode);
+                            })
+                        break;
+                    case 26:
+                        viewMode = 4;
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.changeRenderMode(viewMode);
+                            })
+                        break;
+                    case 8:
+                        enableAnimationFlag = !enableAnimationFlag;
+                        arthub3DViewer.enableAnimation(enableAnimationFlag);
+                        if(enableAnimationFlag)
+                        {
+                            document.getElementById("ANI_PLAY_BTN").innerHTML ="Stop";
+                        }
+                        else
+                        {
+                            document.getElementById("ANI_PLAY_BTN").innerHTML ="Play";
+                        }
+                        break;
+                    case 9:
+                        arthub3DViewer.shot({withImage: true});
+                        break;
+                    case 10:
+                        recordFrame = !recordFrame;
+                        if(recordFrame)
+                        {
+                            arthub3DViewer.captureGifStart();
+                            document.getElementById("recordCapture").innerHTML ="录制封面中...";
+                        }
+                        else
+                        {
+                            arthub3DViewer.captureGifStop();
+                            document.getElementById("recordCapture").innerHTML ="录制封面";
+                        }
+                        break;
+                    case 11:
+                        arthub3DViewer.shot({withImage: false});
+                        break;
+                    case 12:
+                        arthub3DViewer.enableHotspotAdd(true);
+                        break;
+                    case 13:
+                        arthub3DViewer.getAnimationClips()
+                            .then(clips => {
+                                console.log(clips)
+                                animationClips = clips;
+                            });
+                        break;
+                    case 14:
+                        animationLoopModeIndex += 1;
+                        animationLoopModeIndex = animationLoopModeIndex >= animationLoopModeList.length ? 0 : animationLoopModeIndex;
+                        animationLoopMode = animationLoopModeList[animationLoopModeIndex];
+                        arthub3DViewer.setAnimationLoopMode(animationLoopMode);
+                        break;
+                    case 15:
+                        animationClipIndex += 1;
+                        animationClipIndex = animationClipIndex >= animationClips.length ? 0 : animationClipIndex;
+                        arthub3DViewer.setClipIndex(animationClipIndex);
+                        break;
+                    case 16:
+                        animationSpeedFactor += 0.5;
+                        animationSpeedFactor = animationSpeedFactor >= 5 ? 0.5 : animationSpeedFactor;
+                        arthub3DViewer.setSpeedFactor(animationSpeedFactor);
+                        break;
+                    case 17:
+                        setAnimationTimeline(false);
+                        arthub3DViewer.deleteCurrentModel();
+                        break;
+                    case 18:
+                        arthub3DViewer.getSceneStructure();
+                        break;
+                    case 19:
+                        setAnimationTimeline(false);
+                        arthub3DViewer.destroyEngine();
+                        break;
+                    case 20:
+                        getSkybox()
+                            .then((arthubSkybox) => arthubSkybox.getBackgroundInfo())
+                            .then(res => {
+                                console.log(res)
+                            });
+                        break;
+                    case 21:
+                        backgroundImageIndex++;
+                        backgroundImageIndex = backgroundImageIndex >= backgroundParams.length ? 0 : backgroundImageIndex;
+                        const bgParams = backgroundParams[backgroundImageIndex];
+                        getSkybox()
+                            .then((arthubSkybox) => {
+                                if(bgParams.type !== undefined) arthubSkybox.type = bgParams.type;
+                                if(bgParams.backgroundColor !== undefined) arthubSkybox.backgroundColor = bgParams.backgroundColor;
+                                if(bgParams.backgroundImage !== undefined) arthubSkybox.backgroundImage = bgParams.backgroundImage;
+                                if(bgParams.cubeMapName !== undefined) arthubSkybox.cubeMapName = bgParams.cubeMapName;
+                                if(bgParams.lightEnable !== undefined) arthubSkybox.lightEnable = bgParams.lightEnable;
+                                if(bgParams.environmentBrightness !== undefined) arthubSkybox.environmentBrightness = bgParams.environmentBrightness;
+                                if(bgParams.environmentBlur !== undefined) arthubSkybox.environmentBlur = bgParams.environmentBlur;
+                            })
+                        break;
+                    case 22:
+                        skeletonScale *= 1.1;
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.setSkeletonScale(skeletonScale);
+                                arthubRenderer.getSkeletonScale().then(v=>console.log(`current skeleton scale: ${v}`));
+                            })
+                        break;
+                    case 23:
+                        skeletonScale /= 1.1;
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.setSkeletonScale(skeletonScale);
+                                arthubRenderer.getSkeletonScale().then(v=>console.log(`current skeleton scale: ${v}`));
+                            })
+                        break;
+                    case 24:
+                        getRenderer()
+                            .then((arthubRenderer) => {
+                                arthubRenderer.setTopologyColor([Math.random(), Math.random(), Math.random()]);
+                                arthubRenderer.setTopologyAlpha(Math.random());
+                                arthubRenderer.getTopologyColor().then(v=>console.log(`current topology color: ${v}`));
+                                arthubRenderer.getTopologyAlpha().then(v=>console.log(`current topology color: ${v}`));
+                            })
+                        break;
+                }
+            }
+
+
+            //load
+            window.gas2PathList  = 
+            [
+                'airship/gas2/airship.fbx',
+                'bristleback/gas2/bristleback.fbx',
+                'dog/gas2/dog.fbx',
+                'gandalf/gas2/gandalf.fbx',
+                'girlwalk/gas2/girlwalk.fbx',
+                'jacky/gas2/jacky.fbx',
+                'sasuke/gas2/sasuke.fbx',
+                'jinglingwangzi/gas2/jinglingwangzi.FBX',
+                'smurf/gas2/smurf.fbx',
+                'fbx/Bamboo_Stage3_B/gas2/Bamboo_Stage3_B.FBX',
+                'fbx/Bamboo_Stage3_C/gas2/Bamboo_Stage3_C.FBX',
+                'fbx/bush_Stage1/gas2/bush_Stage1.FBX',
+                'fbx/bushDwarfPine_Stage2/gas2/bushDwarfPine_Stage2.FBX',
+                'fbx/cactusOpuntia_Stage2/gas2/cactusOpuntia_Stage2.FBX',
+                'fbx/Carrot/gas2/Carrot.FBX',
+                'fbx/OilStorage/gas2/OilStorage.FBX',
+                'fbx/Orchid_Stage2/gas2/Orchid_Stage2.FBX',
+                'fbx/Tank/gas2/Tank.fbx',
+                'fbx/vg_mush_Glowing_Mushroom/gas2/vg_mush_Glowing_Mushroom.FBX',
+                'mocap/xue/gas2/xue.fbx',//有问题
+                'mocap/qlyy/gas2/qlyy.fbx',//有问题
+            ];
+
+            window.gas1PathList = 
+            [
+                'airship/gas1/airship.fbx',
+                'bristleback/gas1/bristleback.fbx',//MorphTarget
+                'dog/gas1/dog.fbx',
+                'gandalf/gas1/gandalf.fbx',
+                'girlwalk/gas1/girlwalk.fbx',
+                'jacky/gas1/jacky.fbx',
+                'sasuke/gas1/sasuke.fbx',
+                'jinglingwangzi/gas1/jinglingwangzi.FBX',
+                'smurf/gas1/smurf.fbx',
+                'fbx/Bamboo_Stage3_B/gas1/Bamboo_Stage3_B.FBX',
+                'fbx/Bamboo_Stage3_C/gas1/Bamboo_Stage3_C.FBX',
+                'fbx/bush_Stage1/gas1/bush_Stage1.FBX',
+                'fbx/bushDwarfPine_Stage2/gas1/bushDwarfPine_Stage2.FBX',
+                'fbx/cactusOpuntia_Stage2/gas1/cactusOpuntia_Stage2.FBX',
+                'fbx/Carrot/gas1/Carrot.FBX',
+                'fbx/OilStorage/gas1/OilStorage.FBX',
+                'fbx/Orchid_Stage2/gas1/Orchid_Stage2.FBX',
+                'fbx/Tank/gas1/Tank.fbx',
+                'fbx/vg_mush_Glowing_Mushroom/gas1/vg_mush_Glowing_Mushroom.FBX',
+                'mocap/xue/gas1/xue.fbx',//有问题
+                'mocap/qlyy/gas1/qlyy.fbx'//有问题
+            ];
+
+            window.arthubPathList =
+            [
+                {id: 271656699036, assetHub: 'AssetHub_TOPX'},
+                {id: 271656699046, assetHub: 'AssetHub_TOPX'},
+                {id: 181463498230, assetHub: 'AssetHub_MFARP'},//dev
+                {id: 39730021099, assetHub: 'AssetHub_Atc'},//gas2 linkAnimationId 39730021105
+                {id: 39730009630, assetHub: 'AssetHub_Atc'},//gas2 linkTextureId 39730009631
+                {id: 39730009629, assetHub: 'AssetHub_Atc'},//gas2
+                {id: 39730009406, assetHub: 'AssetHub_Atc'},//gas1
+                {id: 374735899043, assetHub: 'AssetHub_CE'},//gas1
+                {id: 374735899045, assetHub: 'AssetHub_CE'},//gas2
+                {id: 39728951215, assetHub: 'AssetHub_Atc'},
+                {id: 39728631960, assetHub: 'AssetHub_Atc'},
+                {id: 39729896816, assetHub: 'AssetHub_Atc'},
+                {id: 39728477412, assetHub: 'AssetHub_Atc'},
+                {id: 39728461759, assetHub: 'AssetHub_Atc'},
+                {id: 202937261579, assetHub: 'AssetHub_MiniGameStudio'},
+                {id: 121332849809, assetHub: 'AssetHub_Gas'},
+                {id: 121332849962, assetHub: 'AssetHub_Gas'},
+                {id: 121332849691, assetHub: 'AssetHub_Gas'},//动画,
+                {id: 121332849896, assetHub: 'AssetHub_Gas'},//讨论点
+                {id: 31138519351, assetHub: 'AssetHub_APG'},//带depotId
+                {id: 121332867693, assetHub: 'AssetHub_Gas'},//带depotId，加载失败
+                {id: 374735899038, assetHub: 'AssetHub_CE'},//狗，gas2线上
+            ];
+
+            var modelIndexInput = document.getElementById('modelIndex');
+            var modelFormatInput = document.getElementById('modelFormat');
+
+            let pathName = window.location.pathname;
+            let pathArr = pathName ? pathName.split('/') : [];
+            let depotName = pathArr.length >= 3 ? pathArr[2] : '';
+            depotName = depotName.indexOf('AssetHub') === -1 ? '' : depotName;
+            let baseURL = depotName ? `${window.location.host}/gas/${depotName}` : `${window.location.host}`;
+            let projectDirectory = `//${baseURL}/assets`;
+
+            function onLoad()
+            {
+                var format = modelFormatInput.value;
+                var fileListName = `${format}PathList`;
+                var fileList = window[fileListName];
+
+                let index = modelIndexInput.value;
+                index = Math.min(fileList.length - 1, index);
+                index = Math.max(0, index);
+                let pathParams = fileList[index];
+
+                let loadParams = {};
+                if(format === 'arthub') {
+                    loadParams.options = pathParams;
+                } else {
+                    loadParams.filename = `${projectDirectory}/${pathParams}`;
+                }
+                loadParams.format = format;
+
+                console.log('load: ', format, index, loadParams);
+
+                setAnimationTimeline(false);
+
+                //arthub3DViewer.unloadCurrent();
+                // scenePromise.then(()=>arthub3DViewer.load(loadParams)).catch(error=>console.log(error));
+                if(arthubScene.loadModel) {
+                    arthubScene.loadModel(loadParams).catch(error=>console.log(error));
+                } else {
+                    console.log('sceneCreate failed!');
+                }
+                arthub3DViewer.enableAnimation(enableAnimationFlag);
+            }
+            //for debug
+            window.viewer = arthub3DViewer;
+        </script>
+    </body>
+</html>

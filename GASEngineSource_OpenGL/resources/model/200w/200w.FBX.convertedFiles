@@ -1,0 +1,23 @@
+{
+    "version":"gas2",
+    "files":
+    [
+        "200w.FBX.Group13504.57.mesh.bin",
+        "200w.FBX.anabelle_lashes_posed_lp_anabelle_posed_grp_lp_polySurface4_poly.59.mesh.bin",
+        "200w.FBX.anabelle12posed4.61.mesh.bin",
+        "200w.FBX.defaultMat.46.mat.json",
+        "200w.FBX.Annabelle_lashes_defaultMat.47.mat.json",
+        "200w.FBX.anabelle12posed4SG.48.mat.json",
+        "200w.FBX.structure.json",
+        "200w.FBX.convertedFiles",
+        "anabelle_c.png",
+        "anabelle_n.tga.png",
+        "eye_canabelle12posed4-TM_u0_v0.tif"
+    ],
+    "statistics":
+    {
+        "triangleCount":4189256,
+        "polygonCount":2175240,
+        "vertexCount":2095189
+    }
+}

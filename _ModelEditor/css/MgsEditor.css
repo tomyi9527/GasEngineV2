@@ -1,0 +1,143 @@
+:root
+{
+    --property-divider-color: #9fa8b0;
+}
+
+/*************************************** asset panel menu ***************************************/
+.UIAssetMenuItem-icon
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*边框*/
+    margin-left: 3px;
+
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.UIAssetMenuItem-title
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*边框*/
+    margin-left: 5px;
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 15px;
+    line-height:30px;
+    text-align: center;
+}
+
+/*************************************** asset grid ***************************************/
+.UIAssetGrid
+{
+    /*颜色*/
+    background: var(--item-color);
+}
+
+.UIAssetGridItem-icon
+{
+    /*显示模式*/
+    display: block;
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*边框*/
+    margin: 0px 15px;
+
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 50px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.UIAssetGridItem-icon-selected
+{
+    /*颜色*/
+    color: var(--item-forward-color-selected);
+}
+
+.UIAssetGridItem-title
+{
+    /*显示模式*/
+    display: block;
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*边框*/
+    margin: 0px 2px;
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 12px;
+    line-height:20px;
+    text-align: center;
+    text-overflow: ellipsis;
+    max-width: 80px;
+    overflow: hidden;
+}
+
+.UIAssetGridItem-title-selected
+{
+    /*颜色*/
+    color: var(--item-forward-color-selected);
+}
+
+.UIAssetGridItem
+{
+    /*位置大小*/
+    width : 80px;
+    height : 80px;
+
+    /*颜色*/
+    background: var(--item-color);
+}
+
+.UIAssetGridItem:hover
+{
+    /*颜色*/
+    background: var(--item-hover-color);
+}
+
+.UIAssetGridItem-selected
+{
+    /*颜色*/
+    background: var(--item-color-selected);
+}
+
+
+@keyframes ui-flash-animation 
+{
+    from {
+        outline-color: #4690EB
+    }
+    to {
+        outline-color: rgba(255, 102, 0, 0)
+    }
+}
+
+.UIAssetGridItem.flash 
+{
+    /* background: var(--item-hover-color); */
+
+    outline: 1px solid var(--item-forward-color-selected);
+    -webkit-animation: ui-flash-animation 500ms ease-in-out forwards;
+    animation: ui-flash-animation 500ms ease-in-out forwards
+}

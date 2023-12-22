@@ -1,0 +1,113 @@
+﻿<!doctype html>
+<html>
+    <head>
+        <title> ArtHub Model Editor </title>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+        <!-- copy css from MgsEditor 2019/6/27-->
+        <link rel="stylesheet" href="css/MgsEditor.css">
+        <link rel="stylesheet" href="css/MgsUI.css">
+        <!-- end of copy css-->
+        <script src='../GASEngineSource/GASEngine.js' type='text/javascript'></script>
+    </head>
+
+<body> 
+    <script>
+        (function(){
+
+            _loadGASEngineSourceFiles_('../');
+
+            function loadScript(body, url)
+            {   
+                var newscript = document.createElement('script');
+                newscript.setAttribute('type','text/javascript');
+                newscript.setAttribute('src', url);
+                newscript.async = false;
+                body.appendChild(newscript);
+            }
+
+            let editorScriptList = [
+                'js/Base/Core.js',
+                'js/Base/Const.js',
+                'js/Base/Object.js',
+                'js/Base/Util.js',
+                'js/Base/Math.js',
+                'js/Base/Log.js',
+                'js/Base/Events.js',
+
+                'js/Action/ActionBinder.js',
+                'js/Action/ActionHandler.js',
+                'js/Action/DelegateHandler.js',
+                'js/Action/SelectorHandler.js',
+                
+                'js/Procedures/MgsEditor.js',
+                'js/Procedures/ProcedureConst.js',
+
+                'js/UI/BaseUI/UIBase.js',
+                'js/UI/BaseUI/UILayout.js',
+                'js/UI/BaseUI/UITree.js',
+                'js/UI/BaseUI/UIPanel.js',
+                'js/UI/BaseUI/UICanvas.js',
+                'js/UI/BaseUI/UITextField.js',
+                'js/UI/BaseUI/UIButton.js',
+                'js/UI/BaseUI/UIStateButton.js',
+                'js/UI/BaseUI/UISlider.js',
+                'js/UI/BaseUI/UICheckBox.js',
+                'js/UI/BaseUI/UIPropertyItem.js',
+                'js/UI/BaseUI/UIVector.js',
+                'js/UI/BaseUI/UIOverlay.js',
+                'js/UI/BaseUI/UIList.js',
+                'js/UI/BaseUI/UIMenuList.js',
+
+                'js/UI/Layout/AttributeEditor/UIAttributePanel.js',
+                'js/UI/Layout/AssetEditor/UIAssetTree.js',
+                'js/UI/Layout/AssetEditor/UIAssetPanel.js',
+
+                'js/UI/Layout/SceneEditor/UIViewportPanel.js',
+                'js/UI/Layout/SceneEditor/UISceneTree.js',
+                'js/UI/Layout/SceneEditor/UISceneEditor.js',
+                'js/UI/Layout/UIEditorLayout.js',
+
+                'v2/WebglCommon.js',
+                'v2/Editor.js',
+                'js/UI/AnimationUtils.js',
+
+                'v2/Delegates/DObjectBase.js',
+                'v2/Delegates/DComponent.js',
+                'v2/Delegates/DEntity.js',
+                'v2/Delegates/DScene.js',
+
+                'v2/EditorModes/EditorModeBase.js',
+                'v2/EditorModes/NavigateMode.js',
+                'v2/EditorModes/SelectMode.js',
+                'v2/EditorModes/AxisOpMode.js',
+                'v2/EditorModes/TranslateMode.js',
+                'v2/EditorModes/RotateMode.js',
+                'v2/EditorModes/ScaleMode.js',
+                'v2/EditorModes/EditorModeController.js',
+
+                'v2/Commands/HistoryList.js',
+                'v2/Commands/Command.js',
+                'v2/Commands/CmdManager.js',
+                // 'v2/Commands/PanelManagers.js',
+                'v2/Commands/DataManager/DSceneManager.js',
+                'v2/Commands/DataManager/DEntityManager.js',
+                'v2/Commands/UIManager/PanelManager.js',
+                'v2/Commands/UIManager/SceneTreeManager.js',
+                'v2/Commands/UIManager/AttributeManager.js',
+                'v2/Commands/UIManager/ViewportManager.js',
+                'index.js'
+            ];
+
+            var body = document.getElementsByTagName('body')[0];
+            for(var i = 0; i< editorScriptList.length; i++)
+            {
+                var url = editorScriptList[i];
+                loadScript(body, url);
+            }
+            
+        }());
+    </script>
+</body>
+
+</html>

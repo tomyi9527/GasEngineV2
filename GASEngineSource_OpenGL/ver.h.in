@@ -1,0 +1,14 @@
+#ifndef _GIT_VER_
+#define _GIT_VER_
+
+constexpr char commit_hash[] = "@COMMIT_HASH@";
+constexpr char branch_name[] = "@BRANCH_NAME@";
+constexpr char commit_author[] = "@COMMIT_AUTHOR@";
+constexpr char commit_time[] = "@COMMIT_TIME@";
+constexpr char commit_message[] = "@COMMIT_MESSAGE@";
+constexpr char commit_tag[] = "@COMMIT_TAG@";
+constexpr char tag_message[] = "@TAG_MESSAGE@";
+constexpr char ref_name[] = "@REF_NAME@";
+constexpr char build_time[] = "@BUILD_TIME@";
+
+#endif // _GIT_VER_

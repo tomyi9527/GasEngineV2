@@ -1,0 +1,113 @@
+#pragma once
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include <set>
+#include "gif_maker.h"
+#include "opengl/buffer_type.h"
+#include "utils/custom_gif_maker/neuralnet_quantization.h"
+#include "Magick++.h"
+
+class GifMaker {
+ public:
+    GifMaker(const GifMakerConfig& in) { Init(in); }
+    GifMaker() { Destroy(); }
+
+    void Init(const GifMakerConfig& in) {
+        Destroy();
+        config = in;
+
+        current_frame_time = 0.0f;
+        step_frame_time = 1.0 / std::max(static_cast<float>(config.fps), 0.01f);
+    }
+    bool AddBackground(const RGBAImageData& src) {
+        bool discard_alpha = true;
+
+        auto input_size = Magick::Geometry(src.width, src.height);
+        auto dest_size = Magick::Geometry(config.width, config.height);
+        
+        // NNQuantizer quant(256);
+        // quant.Quantize(RGBImageData::ConvertFrom(src), {}, 10);
+        // auto palette_vec = quant.GetPalette();
+        // Magick::Image palette(palette_vec.size(), 1, "RGB", Magick::CharPixel, palette_vec.data());
+        // {
+        //     auto ptr = palette.getPixels(0, 0, palette.columns(), palette.rows());
+        //     for (int i = 0; i < palette.rows() * palette.columns(); ++i) {
+        //         ptr[i].red = palette_vec[i].v[0];
+        //         ptr[i].green = palette_vec[i].v[1];
+        //         ptr[i].blue = palette_vec[i].v[2];
+        //     }
+        // }
+        // palette.classType(Magick::ClassType::PseudoClass);
+
+        images.emplace_back(Magick::Image(src.width, src.height, "RGBA", Magick::CharPixel, src.data.data()));
+        Magick::Image& image = images.back();
+        if (discard_alpha) {
+            auto ptr = image.getPixels(0, 0, image.columns(), image.rows());
+            for (int i = 0; i < image.rows() * image.columns(); ++i) {
+                ptr[i].opacity = 0;
+            }
+        }
+        image.flip();
+        // image.map(palette, false); // however it doesn't work...
+        
+        image.gifDisposeMethod(Magick::DisposeType::NoneDispose);
+        // image.orderedDither("o4x4,12");
+        image.magick("gif");
+        image.animationDelay(1);
+
+        if (dest_size != input_size) {
+            image.resize(dest_size);
+        }
+        return true;
+    }
+    bool AddFrame(const RGBAImageData& src, bool discard_alpha = false) {
+        auto input_size = Magick::Geometry(src.width, src.height);
+        auto dest_size = Magick::Geometry(config.width, config.height);
+        images.emplace_back(Magick::Image(src.width, src.height, "RGBA", Magick::CharPixel, src.data.data()));
+
+        current_frame_time += step_frame_time;
+        uint64_t dw_frame_time = std::round(1000.0 * current_frame_time - current_frame_ms);
+        current_frame_ms += dw_frame_time;
+
+        Magick::Image& image = images.back();
+        image.flip();
+        image.gifDisposeMethod(config.disposal);
+        // image.orderedDither("o4x4,12");
+        image.magick("gif");
+        image.animationDelay(dw_frame_time / 10); // 0.01s
+
+        if (discard_alpha) {
+            auto ptr = image.getPixels(0, 0, image.columns(), image.rows());
+            for (int i = 0; i < image.rows() * image.columns(); ++i) {
+                ptr[i].opacity = 0;
+            }
+        }
+        if (dest_size != input_size) {
+            image.resize(dest_size);
+        }
+        return true;
+    }
+    std::string SaveToMem() {
+        Magick::Blob blob;
+        Magick::writeImages(images.begin(), images.end(), &blob);
+        std::string ret;
+        ret.assign(reinterpret_cast<const char*>(blob.data()), blob.length());
+        return ret;
+    }
+    void SaveToFile(const std::string& file) {
+        Magick::writeImages(images.begin(), images.end(), file);
+    }
+    void Destroy() {
+        images.clear();
+        current_frame_time = 0.0f;
+        current_frame_ms = 0;
+    }
+
+ protected:
+    GifMakerConfig config;
+    double current_frame_time = 0.0f;  // second
+    double step_frame_time = 0.0f;
+    uint64_t current_frame_ms = 0;  // ms
+    std::list<Magick::Image> images;
+};

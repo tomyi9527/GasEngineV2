@@ -1,0 +1,1577 @@
+/*风格参照：http://demos.devgrow.com/dark-nav-buttons/
+*/
+
+@font-face{font-family:'mgs-icon';
+    src:url("https://s3-eu-west-1.amazonaws.com/static.playcanvas.com/fonts/PlayIcons-Regular.eot");
+    src:url("https://s3-eu-west-1.amazonaws.com/static.playcanvas.com/fonts/PlayIcons-Regular.eot?#iefix") format("embedded-opentype"),
+    url("https://s3-eu-west-1.amazonaws.com/static.playcanvas.com/fonts/PlayIcons-Regular.woff2") format("woff2"),
+    url("https://s3-eu-west-1.amazonaws.com/static.playcanvas.com/fonts/PlayIcons-Regular.woff") format("woff"),
+    url("https://s3-eu-west-1.amazonaws.com/static.playcanvas.com/fonts/PlayIcons-Regular.ttf") format("truetype"),
+    url("https://s3-eu-west-1.amazonaws.com/static.playcanvas.com/fonts/PlayIcons-Regular.svg") format("svg");
+    font-weight:normal;
+    font-style:normal
+}
+
+:root
+{
+    --theme-color: rgb(135, 158, 173);
+
+    --text-color: #9fa8b0;
+    --item-text-color: #b5c3cf;
+
+    --content-color: #1a2122; 
+    /* url(bg.gif); */
+    --handler-color: #88aac0;
+    --handler-hover-color: #596f7e;
+    --boder-color: rgb(0, 0, 0);
+    --header-color: linear-gradient(180deg, #3D4850 3%, #313d45 4%, #232B30 100%);
+    --overlay-color: #27303600;
+    --shadow-color:rgba(0,0,0,0.55);
+
+    --button-color: linear-gradient(180deg, #3D4850 3%, #313d45 4%, #232B30 100%);
+    --button-hover-color: rgb(54, 67, 75);
+    --button-active-color: rgb(31, 39, 44);
+    --button-boder-color: #1c252b;
+
+    --button-hover-forward-color: #fff;
+    --button-active-forward-color: #888;
+
+    --button-selected-color: rgb(16, 21, 24);
+    --button-selected-forward-color: rgb(58, 58, 58);
+
+    --item-color: #1a2122;
+    --item-hover-color: #354446;
+    --item-color-selected: rgb(16, 21, 24);
+    --item-forward-color-selected: rgb(61, 178, 255);
+
+    --folder-button-forward-color: #7e8385;
+
+    --select-rect-color: #48545871;
+
+    /* header */
+    --panel-header-height: 25px;
+
+    /* property grid */
+    --property-fold-button-size: 20px;
+    --property-item-height: 15px;
+    --property-item-text-size: 12px;
+}
+
+/*************************************** body style ***************************************/
+body
+{
+    /*显示模式*/
+    /* display: flex; */
+
+    /*位置大小*/
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    
+    /*颜色*/
+    background: #000000;
+
+    /*边框*/
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    /*可选性：默认不可选*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    /*滚动条*/
+    overflow: hidden;
+}
+
+
+/*************************************** scrollbar style ***************************************/
+::-webkit-scrollbar 
+{
+    width: 8px;
+    height: 8px
+}
+
+::-webkit-scrollbar-track 
+{
+    
+    background: #232B30;
+}
+
+::-webkit-scrollbar-thumb 
+{
+    background:#5b7180;
+}
+
+::-webkit-scrollbar-corner 
+{
+    background: #000
+}
+
+::-moz-scrollbar 
+{
+    width: 8px;
+    height: 8px
+}
+
+::-moz-scrollbar-track 
+{
+    background: #232B30;
+}
+
+::-moz-scrollbar-thumb 
+{
+    background:#5b7180;
+}
+
+::-moz-scrollbar-corner 
+{
+    background: #000
+}
+
+
+/*************************************** layout style ***************************************/
+.UILayout
+{
+    /*显示模式*/
+    display: flex;
+    flex-grow: 1;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+ 
+    /*颜色*/
+    background: var(--content-color);
+
+    /*边框*/
+    border-style: solid;
+    border-color: var(--boder-color);
+    border-width: 0px;
+
+    /*滚动条*/
+    overflow: hidden;
+}
+
+.UILayout-handler
+{
+    /*显示模式*/
+    display: inline-block;
+    
+    /*位置大小*/
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: 3px;
+    height:3px;
+
+    /*颜色*/
+    background-color: var(--handler-color);
+    opacity: 0;
+
+    /*排序*/
+    z-index: 1;
+}
+
+.UILayout-handler-active
+{
+    /*颜色*/
+    opacity: 1;
+}
+
+.UILayout-handler:hover
+{
+    /*颜色*/
+    opacity: 1;
+}
+
+/*************************************** panel style ***************************************/
+.UIPanel
+{
+    /*显示模式*/
+    display: block;
+    flex-grow: 1;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+ 
+    /*颜色*/
+    background: var(--content-color);
+
+    /*滚动条*/
+    overflow: hidden;
+
+    /*动画*/
+    transition: width  0.2s, height 0.2s;
+}
+
+.UIPanel-header
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: var(--panel-header-height);
+ 
+    /*颜色*/
+    background: var(--header-color);
+
+    /*滚动条*/
+    overflow: hidden;
+
+    /*动画*/
+    transition: transform 0.2s;
+}
+
+.UIPanel-content
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: absolute;
+    top:var(--panel-header-height);
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+ 
+    /*颜色*/
+    background: var(--content-color);
+
+    /*滚动条*/
+    overflow: auto;
+
+    /*边框*/
+    margin: 5px;
+
+    /*动画*/
+}
+
+.UIPanel-foldButton
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*颜色*/
+    color: var(--theme-color);
+    
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: var(--panel-header-height);
+    line-height: 18px;
+    text-align: center;
+    vertical-align: middle;
+    /* font-weight: bold;
+    text-shadow: 1px 1px #1f272b;
+    line-height:45px; */
+
+    /*边框*/
+    margin-right: 5px;
+}
+
+.UIPanel-title
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*颜色*/
+    color: var(--text-color);
+      
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 14px;
+    line-height: var(--panel-header-height);
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+/*************************************** overlay style ***************************************/
+.UIOverlay
+{
+    /*显示模式*/
+    display: none;
+    flex-grow: 1;
+
+    /*位置大小*/
+    position: absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+ 
+    /*颜色*/
+    background: var(--overlay-color);
+
+    /*滚动条*/
+    overflow: hidden;
+
+    /*排序*/
+    z-index: 100;
+
+    /*透明度*/
+    /* opacity: 0.5; */
+
+    /*指针*/
+    cursor: pointer;
+}
+
+/*************************************** popup panel style ***************************************/
+.UIPopupPanel
+{
+    /*显示模式*/
+    display: none;
+    flex-grow: 1;
+
+    /*位置大小*/
+    position: absolute;
+    width:450px;
+    height:300px;
+    left: calc(50% - 225px);
+    top: calc(50% - 150px);
+ 
+    /*颜色*/
+    background: var(--content-color);
+
+    /*滚动条*/
+    overflow: hidden;
+
+    /*阴影*/
+    box-shadow: 7px 7px 7px var(--shadow-color);
+
+    /*排序*/
+    z-index: 2;
+}
+
+.UIPopupPanel-header
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: 30px;
+ 
+    /*颜色*/
+    background: var(--header-color);
+
+    /*滚动条*/
+    overflow: hidden;
+
+    /*指针*/
+    cursor: move;
+}
+
+.UIPopupPanel-close
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: absolute;
+    top:0px;
+    right: 0px;
+    bottom: 0px;
+    width: 30px;
+ 
+    /*颜色*/
+    background: var(--header-color);
+    color: var(--button-color);
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 24px;
+    text-align: center;
+    line-height: 30px;
+
+    /*指针*/
+    cursor: auto;
+}
+
+.UIPopupPanel-close:hover
+{
+    /*颜色*/
+    color: var(--button-hover-color);
+}
+
+.UIPopupPanel-close:active
+{
+    /*颜色*/
+    color: var(--button-active-color);
+}
+
+
+.UIPopupPanel-content
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: absolute;
+    top:30px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+ 
+    /*颜色*/
+    background: var(--content-color);
+
+    /*边框*/
+    border: 1px solid #191f20;
+    /* border-radius: 3px; */
+    /* border-top-width: 0px; */
+
+    /*滚动条*/
+    overflow: auto;
+}
+
+/* 计划
+array（嵌套控件）
+popup menu
+tree view
+grid view(增删移动，多选，拖拽)
+list view
+
+panel 添加是否folded选项，folded可选择header保留（默认），全部fold保留一个unfold按钮
+*/
+
+/*************************************** button style ***************************************/
+.UIButton
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    width:32px;
+    height:20px;
+
+     /*颜色*/
+    background: var(--button-color);
+    color: var(--text-color);
+
+    /*边框*/
+    border: 1px solid #1c252b;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    outline: 0;
+    padding: 5px 12px;
+    margin:0px;
+
+    /*字体*/
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    text-shadow: 1px 1px #1f272b;
+}
+
+.UIButton:hover
+{
+    /*颜色*/
+    color: var(--button-hover-forward-color);
+    background: var(--button-hover-color);
+}
+
+.UIButton:active
+{
+     /*颜色*/
+    color: var(--button-active-forward-color);
+    background: var(--button-active-color);
+}
+
+/*************************************** state button style ***************************************/
+.UIStateButton
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    width:32px;
+    height:20px;
+
+     /*颜色*/
+    background: var(--button-color);
+    color: var(--text-color);
+
+    /*边框*/
+    border: 1px solid #1c252b;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    outline: 0;
+    padding: 5px 12px;
+    margin:3px;
+
+    /*字体*/
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    text-shadow: 1px 1px #1f272b;
+}
+
+.UIStateButton:hover
+{
+    /*颜色*/
+    color: var(--button-hover-forward-color);
+    background: var(--button-hover-color);
+}
+
+.UIStateButton:active
+{
+     /*颜色*/
+    color: var(--button-active-forward-color);
+    background: var(--button-active-color);
+}
+
+.UIStateButton.selected
+{
+     /*颜色*/
+    color: var(--button-selected-forward-color);
+    background: var(--button-selected-color);
+}
+
+/*************************************** check box style ***************************************/
+.UICheckbox
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    position: relative;
+    width: 16px;
+    height: 16px;
+
+    /*颜色*/
+    background-color: #20282D;
+    color: #2c393c;
+
+    /*边框*/
+    border: 1px solid #293538;  
+    /* margin:2px; */
+    border-radius: 3px;
+
+    /*字体*/
+    vertical-align: middle;
+    font-size: 11px;
+    font-family: 'mgs-icon';
+    text-align: center;
+}
+
+.UICheckbox:hover
+{
+    /*颜色*/
+    background-color: rgb(16, 20, 22);
+    color: rgba(243,243,243,1);
+    font-weight: bold;
+}
+
+.UICheckbox.checked
+{
+    /*颜色*/
+    background-color: rgb(177, 177, 177);
+}
+
+.UICheckbox.disabled
+{
+    /*颜色*/
+    background-color: rgb(109, 109, 109);
+    color: rgb(109, 109, 109);
+}
+
+.UICheckbox.checked:hover
+{
+    /*颜色*/
+    background-color: rgb(109, 109, 109);
+    color: rgba(243,243,243,1);
+    font-weight: bold;
+}
+
+/*************************************** text field style ***************************************/
+.UITextField
+{
+    /*显示模式*/
+    display:inline-block;
+
+    /*位置大小*/
+    position: relative;
+    width: 130px;
+    /* height: 24px; */
+
+    /*边框*/
+    border: 1px solid #293538;
+    background-color: #20282D;
+    border-radius: 3px;
+
+    /*字体*/
+    vertical-align: top;
+}
+
+.UITextField:hover
+{
+    /*边框*/
+    border: 1px solid #5b777e;
+}
+
+.UITextField-input
+{
+    /*显示模式*/
+    display:inline-block;
+
+    /*位置大小*/
+    height: 100%;
+    width: 100%;
+
+    /*颜色*/
+    color: #b1b8ba;
+    background: transparent;
+
+    /*边框*/
+    padding: 0 8px;
+    line-height: 22px;
+    border: none;
+    font-size: 15px;
+}
+
+.UITextField-title
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    position: absolute;
+    right: 0px;
+    width: 24px;
+    height: 24px;
+
+    /*颜色*/
+    background: var(--content-color);
+    color: var(--text-color);
+
+    /*字体*/
+    text-align: center;
+    line-height: 22px;
+    font-size: 15px;
+}
+
+/*************************************** label style ***************************************/
+.UILabel
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    /* width:auto; */
+    /* height:24px; */
+
+    /*位置大小*/
+    color: var(--text-color);
+
+    /*位置大小*/
+
+    /*边框*/
+    /* border: 1px solid #293538;
+    border-radius: 3px; */
+    /* margin-right: 15px; */
+
+    /*字体*/
+    /* text-align: center; */
+    /* line-height: 22px; */
+    font-size: 15px;
+
+    /*滚动条*/
+    overflow: hidden;
+}
+
+/*************************************** slider style ***************************************/
+.UISlider
+{
+    /*显示模式*/
+    display:inline-block;
+
+    /*位置大小*/
+    position: relative;
+    width:70px;
+    height:24px;
+
+    /*边框*/
+    margin: 0px 3px;
+
+    /*鼠标指针*/
+    cursor: pointer; 
+}
+
+.UISlider-bar
+{
+    /*显示模式*/
+    display:inline-block;
+
+    /*位置大小*/
+    position: absolute;
+    width: 70px;
+    height: 6px;
+    top:9px;
+
+    /*颜色*/
+    background-color: #20282D;
+}
+
+.UISlider-handler
+{
+    /*显示模式*/
+    display:inline-block;
+
+    /*位置大小*/
+    position: absolute;
+    height: 24px;
+    width: 8px;
+
+    /*颜色*/
+    background: var(--header-color);
+}
+
+.UISlider-handler:hover
+{
+    /*颜色*/
+    background: var(--handler-hover-color);
+}
+
+.UISlider-handler.active
+{
+    /*颜色*/
+    background: var(--handler-color);
+}
+
+/*************************************** list style ***************************************/
+.UIListItem
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto;
+    height: 30px;
+
+    /*颜色*/
+    background: var(--item-color);
+
+    /*边框*/
+    /* margin: 1px 0px;  */
+    border: solid #45585c;
+    border-width: 0px 1px 1px 1px;
+}
+
+.UIListItem:hover
+{
+    /*颜色*/
+    background: var(--item-hover-color);
+}
+
+.UIList
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width:150px;
+    height:'auto';
+
+    /*颜色*/
+    background: var(--content-color);
+
+    /*边框*/
+    padding: 0px; 
+
+    border: solid #45585c;
+    border-width: 1px 0px 0px 0px;
+
+    /*滚动条*/
+    /* overflow: auto; */
+    overflow: visible;
+}
+
+/*************************************** menu list ***************************************/
+.UIMenuList-item-extend
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    position: absolute;
+    right: 0px;
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+}
+
+
+.UIMenuList
+{
+    /*显示模式*/
+    display: block;
+}
+
+/*************************************** array style ***************************************/
+.UIArray
+{
+
+}
+
+/*************************************** select area ***************************************/
+.SelectAreaItem-drag-number
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*边框*/
+    margin-left: 5px;
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 15px;
+    line-height:30px;
+    text-align: center;
+    z-index: 10000;
+}
+
+/*************************************** grid style ***************************************/
+.UIGridItem
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    width: 80px;
+    height: 80px;
+
+    /*颜色*/
+    background: var(--item-color);
+
+    /*边框*/
+    margin: 2px;
+}
+
+.UIGridItem:hover
+{
+    /*颜色*/
+    background: var(--item-hover-color);
+}
+
+.UIGridItem-onDrag
+{
+    /*颜色*/
+    background: var(--item-hover-color);
+}
+
+.UIGrid
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: absolute;
+    /* width: 100%;
+    height: 100%; */
+    top:0px;
+    right:0px;
+    bottom: 0px;
+    left: 0px;
+
+    /*颜色*/
+    background: var(--content-color);
+
+    /*边框*/
+    padding: 10px 10px 10px 10px;
+
+    /*滚动条*/
+    /* overflow: auto; */
+    overflow: auto;
+}
+
+.UIGrid-SelectRect
+{
+    /*显示模式*/
+    display: none;
+
+    /*位置大小*/
+    position: absolute;
+
+    /*颜色*/
+    background: var(--select-rect-color);
+
+    /*排序*/
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+/*************************************** tree style ***************************************/
+.UITreeItem
+{
+    /*显示模式*/
+    display: block;
+    flex-grow: 1;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+    
+    /*颜色*/
+    background: var(--item-color);
+
+    /*边框*/
+    /* padding-top: 5px; */
+
+    /*滚动条*/
+    overflow: visible;
+}
+
+.UITree
+{
+    /*显示模式*/
+    display: block;
+    flex-grow: 1;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+ 
+    /*颜色*/
+    background: var(--item-color);
+
+    /*滚动条*/
+    overflow: visible;
+}
+
+.UITree2
+{
+    /*显示模式*/
+    display: block;
+    flex-grow: 1;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+ 
+    /*颜色*/
+    background: var(--item-color);
+
+    /*边框*/
+    /* margin-left: 20px; */
+
+    /*滚动条*/
+    overflow: visible;
+}
+
+.UITree-header
+{
+    /*显示模式*/
+    display: block;
+    white-space: nowrap;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+ 
+    /*颜色*/
+    background: var(--item-color);
+    color: var(--text-color);
+
+    /*边框*/
+    /* margin-top: 3px; */
+
+    /*滚动条*/
+    overflow: visible;
+}
+
+.UITree-header:hover
+{
+    /*颜色*/
+    background: var(--item-hover-color);
+    color:#fff;
+}
+
+.UITree-header.selected
+{
+    /*颜色*/
+    background: var(--item-color-selected);
+    color: var(--item-forward-color-selected);
+}
+
+.UITree-content
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto; 
+ 
+    /*颜色*/
+    background: var(--item-color);
+
+    /*滚动条*/
+    overflow: visible;
+
+    /*边框*/
+    /* margin: 0px 0px 0px 20px; */
+    /* padding: 1px; */
+    padding-left: 15px;
+
+    /*动画*/
+}
+
+.UITree-foldButton
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*颜色*/
+    /* color: var(--folder-button-forward-color); */
+    
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 18px;
+    line-height: 22px;
+
+    /*边框*/
+    margin-right: 3px;
+}
+
+.UITree-foldButton:hover
+{
+    color:#fff;
+}
+
+.UITree-icon
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*颜色*/
+    /* color: var(--text-color);  */
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.UITree-title
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*颜色*/
+    /* color: var(--text-color);    */
+
+    /*字体*/
+    font-family: 'mgs-icon';
+    font-size: 15px;
+    line-height:22px;
+}
+
+.UITree-dragHandler
+{
+    /*显示模式*/
+    display: inline-block;
+    position: absolute;
+
+    /*颜色*/
+    /* color: var(--text-color);    */
+
+    /*边框*/
+    border: solid 2px var(--item-forward-color-selected);
+
+    /*字体*/
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+.UITree-preMargin
+{
+    /*显示模式*/
+    display: block;
+    /* background: rgb(134, 51, 51); */
+
+    /*位置大小*/
+    /* position: relative;
+    width: auto; 
+    height: 2px; */
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 6px;
+
+    z-index: 1;
+}
+
+.UITree-insertArea
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 6px;
+
+    z-index: 1;
+}
+
+/*************************************** canvas 3d style ***************************************/
+.UICanvas
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+}
+
+/*************************************** property grid ***************************************/
+.UIAttributeGrid
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+
+    /*颜色*/
+    background: var(--content-color); /*#000000;*/
+
+    /*边框*/
+    margin-top: 8px;
+    /* padding: 0px 0px 0px 5px; */
+
+    /*滚动条*/
+    overflow: hidden;
+}
+
+.UIAttributeGrid-header
+{
+    /*显示模式*/
+    display: block;
+    white-space: nowrap;
+
+    /*位置大小*/
+    position: relative;
+    width: auto;
+    height: var(--property-item-height);
+ 
+    /*颜色*/
+    background: var(--content-color);; /*#573131*/
+
+    /*边框*/
+    margin: 0px 0px 0px 0px;
+}
+
+.UIAttributeGrid-header-foldButton
+{
+    /*显示模式*/
+    display: none;
+
+    /*位置大小*/
+    width: var(--property-item-height);
+
+    /*颜色*/
+    color: var(--text-color);
+    
+    /*字体*/
+    font-family: 'mgs-icon';
+    vertical-align:center;
+    font-size: var(--property-item-height);
+    line-height: var(--property-item-height);
+    
+    /*边框*/
+    margin-right: 5px; 
+}
+
+.UIAttributeGrid-header-title
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    width:100px;
+    max-width: 100px;
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*字体*/
+    vertical-align: middle;
+    font-size: var(--property-item-text-size);
+    line-height: var(--property-item-height);
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    /*边框*/
+    margin-right: 10px;
+}
+
+.UIAttributeGrid-content
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+ 
+    /*颜色*/
+    background: var(--content-color);
+
+    /*边框*/
+    /* margin: 0px;
+    padding: 0px; */
+    
+    padding: 0px 0px 0px var(--property-item-height);
+
+    /*滚动条*/
+    overflow: visible;
+}
+
+/*************************************** property grid extend ***************************************/
+.UIAttributeGrid-label
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    /* width:100px; */
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*字体*/
+    vertical-align: middle;
+    font-size: var(--property-item-text-size);
+    line-height: var(--property-item-height);
+}
+
+/*************************************** property grid extend ***************************************/
+.UIEditorLayout
+{
+    width: 100%;
+    height: 100%;
+}
+
+/*************************************** grid view ***************************************/
+.UIGridItem
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    width: 80px;
+    height: 80px;
+
+    /*颜色*/
+    background: var(--item-color);
+
+    /*边框*/
+    margin: 2px;
+}
+
+.UIGridItem:hover
+{
+    /*颜色*/
+    background: var(--item-hover-color);
+}
+
+.UIGridItem-onDrag
+{
+    /*颜色*/
+    background: var(--item-hover-color);
+}
+
+.UIGridView
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: absolute;
+    /* width: 100%;
+    height: 100%; */
+    top:0px;
+    right:0px;
+    bottom: 0px;
+    left: 0px;
+
+    /*颜色*/
+    background: var(--content-color);
+
+    /*边框*/
+    padding: 10px 10px 10px 10px;
+
+    /*滚动条*/
+    /* overflow: auto; */
+    overflow: auto;
+}
+
+.UIGrid-SelectRect
+{
+    /*显示模式*/
+    display: none;
+
+    /*位置大小*/
+    position: absolute;
+
+    /*颜色*/
+    background: var(--select-rect-color);
+
+    /*排序*/
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+/*************************************** Attribute Grid ***************************************/
+:root
+{
+    --attribute-header-height: 30px;
+    --attribute-line-height: 20px;
+    --attribute-font-size: 12px;
+    --attribute-child-height: 26px;
+}
+
+.testContainer
+{
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+    background: #3e8d73;
+}
+
+.testGrid
+{
+    display: flex;
+    width: 100%;
+    height: auto;
+    background: #88aac0;
+}
+
+.testHeader
+{
+    display: flex;
+    /* align-items: stretch; */
+    align-items: center;
+    justify-content: center;
+    /* flex-flow: row nowrap; */
+    width: 100%;
+    height: var(--attribute-header-height);
+    background: #88aac0;
+}
+
+.child1
+{
+    display: inline-block;
+    /* flex-grow: 1; */
+    width: 27%;
+    height: var(--attribute-child-height);
+    background: rgb(55, 214, 89);
+
+    line-height: var(--attribute-line-height);
+    font-size: var(--attribute-font-size);
+    text-overflow: ellipsis;
+}
+
+.child2
+{
+    display: inline-block;
+    height: var(--attribute-child-height);
+    flex-grow: 1;
+    background: rgb(33, 43, 129);
+
+    line-height: var(--attribute-line-height);
+    font-size: var(--attribute-font-size);
+}
+
+.child3
+{
+    display: inline-block;
+    height: var(--attribute-child-height);
+    flex-grow: 1;
+    background: rgb(131, 146, 46);
+
+    line-height: var(--attribute-line-height);
+    font-size: var(--attribute-font-size);
+}
+
+.UIAttributeGrid1
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+
+    /*颜色*/
+    background: var(--content-color); /*#000000;*/
+
+    /*边框*/
+    margin-top: 8px;
+    /* padding: 0px 0px 0px 5px; */
+
+    /*滚动条*/
+    overflow: hidden;
+}
+
+.UIAttributeGrid
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+
+    /*颜色*/
+    background: var(--content-color); /*#000000;*/
+
+    /*边框*/
+    margin-top: 8px;
+    /* padding: 0px 0px 0px 5px; */
+
+    /*滚动条*/
+    overflow: hidden;
+}
+
+.UIAttributeGrid-header
+{
+    /*显示模式*/
+    display: block;
+    white-space: nowrap;
+
+    /*位置大小*/
+    position: relative;
+    width: auto;
+    height: var(--property-item-height);
+ 
+    /*颜色*/
+    background: var(--content-color);; /*#573131*/
+
+    /*边框*/
+    margin: 0px 0px 0px 0px;
+}
+
+.UIAttributeGrid-header-foldButton
+{
+    /*显示模式*/
+    display: none;
+
+    /*位置大小*/
+    width: var(--property-item-height);
+
+    /*颜色*/
+    color: var(--text-color);
+    
+    /*字体*/
+    font-family: 'mgs-icon';
+    vertical-align:center;
+    font-size: var(--property-item-height);
+    line-height: var(--property-item-height);
+    
+    /*边框*/
+    margin-right: 5px; 
+}
+
+.UIAttributeGrid-header-title
+{
+    /*显示模式*/
+    display: inline-block;
+
+    /*位置大小*/
+    width:100px;
+    max-width: 100px;
+
+    /*颜色*/
+    color: var(--text-color);
+
+    /*字体*/
+    vertical-align: middle;
+    font-size: var(--property-item-text-size);
+    line-height: var(--property-item-height);
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    /*边框*/
+    margin-right: 10px;
+}
+
+.UIAttributeGrid-content
+{
+    /*显示模式*/
+    display: block;
+
+    /*位置大小*/
+    position: relative;
+    width: auto; 
+    height: auto;
+ 
+    /*颜色*/
+    background: var(--content-color);
+
+    /*边框*/
+    /* margin: 0px;
+    padding: 0px; */
+    
+    padding: 0px 0px 0px var(--property-item-height);
+
+    /*滚动条*/
+    overflow: visible;
+}

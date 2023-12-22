@@ -1,0 +1,657 @@
+{
+    "version": "gas2",
+    "totalPolygonCount": 39159,
+    "totalTriangleCount": 77980,
+    "totalVertexCount": 43546,
+    "totalVertexFormats": 
+    [
+        "POSITION",
+        "NORMAL0",
+        "TANGENT0",
+        "UV0"
+    ],
+    "totalBlendShapeCount": 29,
+    "keyframeCount": 20202,
+    "fps": 24,
+    "animationDuration": 149,
+    "boneHierarchy":
+    [
+        {
+            "id": 182,
+            "name": "Root_M"
+        },
+        {
+            "id": 183,
+            "name": "Hip_R",
+            "parent": 182
+        },
+        {
+            "id": 184,
+            "name": "HipPart1_R",
+            "parent": 183
+        },
+        {
+            "id": 185,
+            "name": "HipPart2_R",
+            "parent": 184
+        },
+        {
+            "id": 186,
+            "name": "Knee_R",
+            "parent": 185
+        },
+        {
+            "id": 187,
+            "name": "Ankle_R",
+            "parent": 186
+        },
+        {
+            "id": 188,
+            "name": "Toes_R",
+            "parent": 187
+        },
+        {
+            "id": 192,
+            "name": "Spine1_M"
+        },
+        {
+            "id": 194,
+            "name": "Spine1Part2_M"
+        },
+        {
+            "id": 195,
+            "name": "Chest_M",
+            "parent": 194
+        },
+        {
+            "id": 196,
+            "name": "Scapula_R",
+            "parent": 195
+        },
+        {
+            "id": 197,
+            "name": "Shoulder_R",
+            "parent": 196
+        },
+        {
+            "id": 198,
+            "name": "ShoulderPart1_R",
+            "parent": 197
+        },
+        {
+            "id": 199,
+            "name": "ShoulderPart2_R",
+            "parent": 198
+        },
+        {
+            "id": 201,
+            "name": "ElbowPart1_R"
+        },
+        {
+            "id": 202,
+            "name": "ElbowPart2_R",
+            "parent": 201
+        },
+        {
+            "id": 203,
+            "name": "Wrist_R",
+            "parent": 202
+        },
+        {
+            "id": 204,
+            "name": "MiddleFinger1_R",
+            "parent": 203
+        },
+        {
+            "id": 205,
+            "name": "MiddleFinger2_R",
+            "parent": 204
+        },
+        {
+            "id": 206,
+            "name": "MiddleFinger3_R",
+            "parent": 205
+        },
+        {
+            "id": 208,
+            "name": "ThumbFinger1_R",
+            "parent": 203
+        },
+        {
+            "id": 209,
+            "name": "ThumbFinger2_R",
+            "parent": 208
+        },
+        {
+            "id": 210,
+            "name": "ThumbFinger3_R",
+            "parent": 209
+        },
+        {
+            "id": 212,
+            "name": "IndexFinger1_R",
+            "parent": 203
+        },
+        {
+            "id": 213,
+            "name": "IndexFinger2_R",
+            "parent": 212
+        },
+        {
+            "id": 214,
+            "name": "IndexFinger3_R",
+            "parent": 213
+        },
+        {
+            "id": 216,
+            "name": "Cup_R",
+            "parent": 203
+        },
+        {
+            "id": 217,
+            "name": "RingFinger1_R",
+            "parent": 216
+        },
+        {
+            "id": 218,
+            "name": "RingFinger2_R",
+            "parent": 217
+        },
+        {
+            "id": 219,
+            "name": "RingFinger3_R",
+            "parent": 218
+        },
+        {
+            "id": 221,
+            "name": "PinkyFinger1_R",
+            "parent": 216
+        },
+        {
+            "id": 222,
+            "name": "PinkyFinger2_R",
+            "parent": 221
+        },
+        {
+            "id": 223,
+            "name": "PinkyFinger3_R",
+            "parent": 222
+        },
+        {
+            "id": 225,
+            "name": "Neck_M",
+            "parent": 195
+        },
+        {
+            "id": 226,
+            "name": "NeckPart1_M",
+            "parent": 225
+        },
+        {
+            "id": 228,
+            "name": "Head_M"
+        },
+        {
+            "id": 229,
+            "name": "Eye_R",
+            "parent": 228
+        },
+        {
+            "id": 231,
+            "name": "Jaw_R",
+            "parent": 228
+        },
+        {
+            "id": 233,
+            "name": "hair1_R",
+            "parent": 228
+        },
+        {
+            "id": 234,
+            "name": "hair2_R",
+            "parent": 233
+        },
+        {
+            "id": 235,
+            "name": "hair3_R",
+            "parent": 234
+        },
+        {
+            "id": 236,
+            "name": "hairEnd_R",
+            "parent": 235
+        },
+        {
+            "id": 238,
+            "name": "Eye_L",
+            "parent": 228
+        },
+        {
+            "id": 240,
+            "name": "Jaw_L",
+            "parent": 228
+        },
+        {
+            "id": 242,
+            "name": "hair1_L",
+            "parent": 228
+        },
+        {
+            "id": 243,
+            "name": "hair2_L",
+            "parent": 242
+        },
+        {
+            "id": 244,
+            "name": "hair3_L",
+            "parent": 243
+        },
+        {
+            "id": 245,
+            "name": "hairEnd_L",
+            "parent": 244
+        },
+        {
+            "id": 247,
+            "name": "Scapula_L",
+            "parent": 195
+        },
+        {
+            "id": 248,
+            "name": "Shoulder_L",
+            "parent": 247
+        },
+        {
+            "id": 249,
+            "name": "ShoulderPart1_L",
+            "parent": 248
+        },
+        {
+            "id": 250,
+            "name": "ShoulderPart2_L",
+            "parent": 249
+        },
+        {
+            "id": 252,
+            "name": "ElbowPart1_L"
+        },
+        {
+            "id": 253,
+            "name": "ElbowPart2_L",
+            "parent": 252
+        },
+        {
+            "id": 254,
+            "name": "Wrist_L",
+            "parent": 253
+        },
+        {
+            "id": 255,
+            "name": "MiddleFinger1_L",
+            "parent": 254
+        },
+        {
+            "id": 256,
+            "name": "MiddleFinger2_L",
+            "parent": 255
+        },
+        {
+            "id": 257,
+            "name": "MiddleFinger3_L",
+            "parent": 256
+        },
+        {
+            "id": 259,
+            "name": "ThumbFinger1_L",
+            "parent": 254
+        },
+        {
+            "id": 260,
+            "name": "ThumbFinger2_L",
+            "parent": 259
+        },
+        {
+            "id": 261,
+            "name": "ThumbFinger3_L",
+            "parent": 260
+        },
+        {
+            "id": 263,
+            "name": "IndexFinger1_L",
+            "parent": 254
+        },
+        {
+            "id": 264,
+            "name": "IndexFinger2_L",
+            "parent": 263
+        },
+        {
+            "id": 265,
+            "name": "IndexFinger3_L",
+            "parent": 264
+        },
+        {
+            "id": 267,
+            "name": "Cup_L",
+            "parent": 254
+        },
+        {
+            "id": 268,
+            "name": "RingFinger1_L",
+            "parent": 267
+        },
+        {
+            "id": 269,
+            "name": "RingFinger2_L",
+            "parent": 268
+        },
+        {
+            "id": 270,
+            "name": "RingFinger3_L",
+            "parent": 269
+        },
+        {
+            "id": 272,
+            "name": "PinkyFinger1_L",
+            "parent": 267
+        },
+        {
+            "id": 273,
+            "name": "PinkyFinger2_L",
+            "parent": 272
+        },
+        {
+            "id": 274,
+            "name": "PinkyFinger3_L",
+            "parent": 273
+        },
+        {
+            "id": 276,
+            "name": "Hip_L",
+            "parent": 182
+        },
+        {
+            "id": 277,
+            "name": "HipPart1_L",
+            "parent": 276
+        },
+        {
+            "id": 278,
+            "name": "HipPart2_L",
+            "parent": 277
+        },
+        {
+            "id": 279,
+            "name": "Knee_L",
+            "parent": 278
+        },
+        {
+            "id": 280,
+            "name": "Ankle_L",
+            "parent": 279
+        },
+        {
+            "id": 281,
+            "name": "Toes_L",
+            "parent": 280
+        }
+    ],
+    "meshInfo":
+    [
+        {
+            "id": 326,
+            "name": "model_body",
+            "polygonCount": 21906,
+            "triangleCount": 43808,
+            "vertexCount": 21906,
+            "boneList": [182, 183, 184, 185, 186, 187, 188, 192, 194, 195, 196, 197, 198, 199, 201, 202, 203, 204, 205, 206, 208, 209, 210, 212, 213, 214, 216, 217, 218, 219, 221, 222, 223, 225, 226, 228, 231, 240, 247, 248, 249, 250, 252, 253, 254, 255, 256, 257, 259, 260, 261, 263, 264, 265, 267, 268, 269, 270, 272, 273, 274, 276, 277, 278, 279, 280, 281],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 328,
+            "name": "model_teeth_upper",
+            "polygonCount": 1166,
+            "triangleCount": 2204,
+            "vertexCount": 1213,
+            "boneList": [228],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 330,
+            "name": "model_teeth_lower",
+            "polygonCount": 1358,
+            "triangleCount": 2610,
+            "vertexCount": 1434,
+            "boneList": [231, 240],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 332,
+            "name": "model_tongue",
+            "polygonCount": 160,
+            "triangleCount": 312,
+            "vertexCount": 166,
+            "boneList": [231, 240],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 334,
+            "name": "model_eyes_R_outer",
+            "polygonCount": 192,
+            "triangleCount": 368,
+            "vertexCount": 193,
+            "boneList": [229],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 336,
+            "name": "model_eyes_R_inner",
+            "polygonCount": 192,
+            "triangleCount": 368,
+            "vertexCount": 193,
+            "boneList": [229],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 338,
+            "name": "model_eyes_L_outer",
+            "polygonCount": 192,
+            "triangleCount": 368,
+            "vertexCount": 193,
+            "boneList": [238],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 340,
+            "name": "model_eyes_L_inner",
+            "polygonCount": 192,
+            "triangleCount": 368,
+            "vertexCount": 193,
+            "boneList": [238],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 342,
+            "name": "model_tear_L",
+            "polygonCount": 36,
+            "triangleCount": 72,
+            "vertexCount": 54,
+            "boneList": [228],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 344,
+            "name": "model_tear_R",
+            "polygonCount": 36,
+            "triangleCount": 72,
+            "vertexCount": 54,
+            "boneList": [228],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 346,
+            "name": "model_hair_outer",
+            "polygonCount": 1454,
+            "triangleCount": 2908,
+            "vertexCount": 2340,
+            "boneList": [228, 233, 234, 235, 236, 242, 243, 244, 245],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 348,
+            "name": "model_hair_inner",
+            "polygonCount": 5096,
+            "triangleCount": 10192,
+            "vertexCount": 8184,
+            "boneList": [228, 233, 234, 235, 236, 242, 243, 244, 245],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 350,
+            "name": "model_eyelash_L_upper",
+            "polygonCount": 96,
+            "triangleCount": 192,
+            "vertexCount": 144,
+            "boneList": [228],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 352,
+            "name": "model_eyelash_L_lower",
+            "polygonCount": 48,
+            "triangleCount": 96,
+            "vertexCount": 72,
+            "boneList": [228],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 354,
+            "name": "model_eyelash_R_upper",
+            "polygonCount": 96,
+            "triangleCount": 192,
+            "vertexCount": 144,
+            "boneList": [228],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 356,
+            "name": "model_eyelash_R_lower",
+            "polygonCount": 48,
+            "triangleCount": 96,
+            "vertexCount": 72,
+            "boneList": [228],
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 359,
+            "name": "cloth_0000061_Mesh",
+            "polygonCount": 6891,
+            "triangleCount": 13754,
+            "vertexCount": 6991,
+            "blendshapeCount": 29,
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        }
+    ]
+}

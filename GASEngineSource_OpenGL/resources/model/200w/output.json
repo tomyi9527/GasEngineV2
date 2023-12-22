@@ -1,0 +1,70 @@
+{
+    "version": "gas2",
+    "totalPolygonCount": 2175240,
+    "totalTriangleCount": 4189256,
+    "totalVertexCount": 2095189,
+    "totalVertexFormats": 
+    [
+        "POSITION",
+        "NORMAL0",
+        "TANGENT0",
+        "UV0"
+    ],
+    "totalBlendShapeCount": 0,
+    "keyframeCount": 0,
+    "fps": 0,
+    "animationDuration": 0,
+    "textures": 
+    [
+        "anabelle_c.png",
+        "anabelle_n.tga.png",
+        "eye_canabelle12posed4-TM_u0_v0.tif"
+    ],
+    "boneHierarchy":
+    [
+    "meshInfo":
+    [
+        {
+            "id": 57,
+            "name": "Group13504",
+            "polygonCount": 2014016,
+            "triangleCount": 4028032,
+            "vertexCount": 2014264,
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 59,
+            "name": "anabelle_lashes_posed_lp_anabelle_posed_grp_lp_polySurface4_poly",
+            "polygonCount": 42440,
+            "triangleCount": 42440,
+            "vertexCount": 21529,
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        },
+        {
+            "id": 61,
+            "name": "anabelle12posed4",
+            "polygonCount": 118784,
+            "triangleCount": 118784,
+            "vertexCount": 59396,
+            "vertexFormats": 
+            [
+                "POSITION",
+                "NORMAL0",
+                "UV0",
+                "TANGENT0"
+            ]
+        }
+    ]
+}

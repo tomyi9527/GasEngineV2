@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title>arthub-3d-viewer-iframe</title>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      left: 0;
+      top: 0;
+    }
+
+    canvas {
+      cursor: pointer;
+    }
+
+    canvas:focus {
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <script src='./vendors/gif.js' type='text/javascript'></script>
+  <script src='./config/domain.js' type='text/javascript'></script>
+  <!-- if prod -->
+  <script src='../build/GASEngine.js' type='text/javascript'></script>
+  <!-- else -->
+  <!-- <script src='../GASEngineSource/GASEngine.js' type='text/javascript'></script> -->
+  <script type="text/javascript">
+    _loadGASEngineSourceFiles_("../");
+
+    function loadScript(body, url) {
+      var newscript = document.createElement('script');
+      newscript.setAttribute('type', 'text/javascript');
+      newscript.setAttribute('src', url);
+      newscript.async = false;
+      body.appendChild(newscript);
+    };
+
+    var body = document.getElementsByTagName('body')[0];
+    loadScript(body, "NetworkHub.js");
+    loadScript(body, "ArtHubIncrementalSaver.js");
+    loadScript(body, "ArtHubFileSystem.js");
+    loadScript(body, "ArtHubGas1Loader.js");
+    loadScript(body, "ArtHubGas2Loader.js");
+    loadScript(body, "ArtHubLoader.js");
+    loadScript(body, "ArtHubMaterialAdapter.js");
+    loadScript(body, "CaptureGif.js");
+    loadScript(body, "arthub-3d-viewer-iframe.js");
+  </script>
+</body>
+
+</html>

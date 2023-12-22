@@ -1,0 +1,239 @@
+#pragma once
+#include <algorithm>
+#include <fstream>
+#include <set>
+#include "gif_maker.h"
+#include "opengl/buffer_type.h"
+#include "FreeImage.h"
+// 参照 https://www.programmersought.com/article/14443705702/ 进行修改得到
+class GifMaker {
+ public:
+    GifMaker(const GifMakerConfig& in) { Init(in); }
+    GifMaker() { Destroy(); }
+
+    void Init(const GifMakerConfig& in) {
+        Destroy();
+        config = in;
+
+        current_frame_time = 0.0f;
+        step_frame_time = config.delay_ms;
+        // 不创建文件
+        multi = FreeImage_OpenMultiBitmap(FIF_GIF, "", TRUE, FALSE, TRUE);
+    }
+    bool AddBackground(const RGBAImageData& src) {
+        // see https://legacy.imagemagick.org/Usage/anim_basics/#zero
+        // display this frame with next frame at the same time, but this frame won't be disposed
+        double start_step_frame_time = 0; 
+        int disposal = 1;
+        std::swap(config.disposal, disposal);
+        std::swap(start_step_frame_time, step_frame_time);
+
+        FIBITMAP* bitmap = FreeImage_Allocate(src.width, src.height, 32);
+        auto bytes = (RGBQUAD*)FreeImage_GetBits(bitmap);
+        for (uint64_t idx = 0; idx < src.width * src.height; ++idx) {
+            bytes[idx].rgbRed = src.data[idx * 4 + 0];       // r
+            bytes[idx].rgbGreen = src.data[idx * 4 + 1];     // g
+            bytes[idx].rgbBlue = src.data[idx * 4 + 2];      // b
+            bytes[idx].rgbReserved = src.data[idx * 4 + 3];  // a
+        }
+        bool ret = AddFrame(bitmap, true, FREE_IMAGE_QUANTIZE::FIQ_NNQUANT);
+        FreeImage_Unload(bitmap);
+
+        std::swap(config.disposal, disposal);
+        std::swap(start_step_frame_time, step_frame_time);
+        return ret;
+    }
+
+    bool AddFrame(const RGBAImageData& src, bool discard_alpha = false, FREE_IMAGE_QUANTIZE method = FREE_IMAGE_QUANTIZE::FIQ_WUQUANT) {
+        FIBITMAP* bitmap = FreeImage_Allocate(src.width, src.height, 32);
+        auto bytes = (RGBQUAD*)FreeImage_GetBits(bitmap);
+        for (uint64_t idx = 0; idx < src.width * src.height; ++idx) {
+            bytes[idx].rgbRed = src.data[idx * 4 + 0];       // r
+            bytes[idx].rgbGreen = src.data[idx * 4 + 1];     // g
+            bytes[idx].rgbBlue = src.data[idx * 4 + 2];      // b
+            bytes[idx].rgbReserved = src.data[idx * 4 + 3];  // a
+        }
+        bool ret = AddFrame(bitmap, discard_alpha, method);
+        FreeImage_Unload(bitmap);
+        return ret;
+    }
+    std::string SaveToMem() {
+        auto memory = FreeImage_OpenMemory();
+        FreeImage_SaveMultiBitmapToMemory(FIF_GIF, multi, memory, 0);
+        BYTE* mem_buffer = NULL;
+        DWORD size_in_bytes = 0;
+
+        FreeImage_AcquireMemory(memory, &mem_buffer, &size_in_bytes);  // return internal pointer
+        std::string return_val;
+        return_val.assign(reinterpret_cast<char*>(mem_buffer), size_in_bytes);
+        FreeImage_CloseMemory(memory);
+        return return_val;
+    }
+    void SaveToFile(const std::string& file) {
+        auto memory = FreeImage_OpenMemory();
+        FreeImage_SaveMultiBitmapToMemory(FIF_GIF, multi, memory, 0);
+        BYTE* mem_buffer = NULL;
+        DWORD size_in_bytes = 0;
+
+        FreeImage_AcquireMemory(memory, &mem_buffer, &size_in_bytes);  // return internal pointer
+        // save the buffer in a file stream
+        std::fstream filestream(file, std::ios::binary | std::ios::out);
+        if (filestream) {
+            filestream.write(reinterpret_cast<char*>(mem_buffer), size_in_bytes);
+        }
+        FreeImage_CloseMemory(memory);
+    }
+    void Destroy() {
+        current_frame_time = 0.0f;
+        current_frame_ms = 0;
+        if (multi) {
+            FreeImage_CloseMultiBitmap(multi);
+            multi = nullptr;
+        }
+        for (const auto& m : bitmaps) {
+            FreeImage_Unload(m);
+        }
+    }
+
+ protected:
+    // 传入的dib仍需要用户主动清理
+    bool AddFrame(FIBITMAP* dib24or32bit, bool discard_alpha = false, FREE_IMAGE_QUANTIZE method = FREE_IMAGE_QUANTIZE::FIQ_WUQUANT) {
+        bool first_frame = current_frame_ms == 0;
+        // 转换输入为 palette image
+        auto dib = genhDIB8bpp(dib24or32bit, discard_alpha, method);
+        // move time forward
+        current_frame_time += step_frame_time;
+        DWORD dw_frame_time = std::round(current_frame_time - current_frame_ms);
+        current_frame_ms += dw_frame_time;
+        // clear current tag.
+        FreeImage_SetMetadata(FIMD_ANIMATION, dib, NULL, NULL);
+        FITAG* tag = nullptr;
+        // tag: loop flag
+		if (first_frame) {
+			tag = FreeImage_CreateTag();
+			if (tag) {
+				int32_t val = config.repeat; // 0 = loop forever
+				FreeImage_SetTagKey(tag, "Loop");
+				FreeImage_SetTagType(tag, FIDT_LONG);
+				FreeImage_SetTagCount(tag, 1);
+				FreeImage_SetTagLength(tag, 4);
+				FreeImage_SetTagValue(tag, &val);
+				FreeImage_SetMetadata(FIMD_ANIMATION, dib, FreeImage_GetTagKey(tag), tag);
+                FreeImage_DeleteTag(tag);
+                tag = nullptr;
+			}
+		}
+        // tag: frame time
+        tag = FreeImage_CreateTag();
+        if (tag) {
+            FreeImage_SetTagKey(tag, "FrameTime");
+            FreeImage_SetTagType(tag, FIDT_LONG);
+            FreeImage_SetTagCount(tag, 1);
+            FreeImage_SetTagLength(tag, 4);
+            FreeImage_SetTagValue(tag, &dw_frame_time);
+            FreeImage_SetMetadata(FIMD_ANIMATION, dib, FreeImage_GetTagKey(tag), tag);
+            FreeImage_DeleteTag(tag);
+            tag = nullptr;
+        }
+        // tag: frame time
+        if (config.disposal != 0) {
+			tag = FreeImage_CreateTag();
+			if (tag) {
+				BYTE val = config.disposal; // 0 = loop forever
+				FreeImage_SetTagKey(tag, "DisposalMethod");
+				FreeImage_SetTagType(tag, FIDT_BYTE);
+				FreeImage_SetTagCount(tag, 1);
+				FreeImage_SetTagLength(tag, 1);
+				FreeImage_SetTagValue(tag, &val);
+				FreeImage_SetMetadata(FIMD_ANIMATION, dib, FreeImage_GetTagKey(tag), tag);
+                FreeImage_DeleteTag(tag);
+                tag = nullptr;
+			}
+        }
+        // add new frame
+        FreeImage_AppendPage(multi, dib);
+        bitmaps.emplace(dib);
+        return true;
+    }
+
+    // input is required to be rgb(24) or rgba(32) image
+    FIBITMAP* genhDIB8bpp(FIBITMAP* hDIB24or32bpp, bool discard_alpha, FREE_IMAGE_QUANTIZE method = FREE_IMAGE_QUANTIZE::FIQ_WUQUANT) {
+        // get input size
+        int w = FreeImage_GetWidth(hDIB24or32bpp);
+        int h = FreeImage_GetHeight(hDIB24or32bpp);
+
+        // 1. resize if not match output request
+        // hDIB24or32bpp is deleted outside by user.
+        if (w != config.width || h != config.height) {
+            // rescale if size doesn't match
+            auto old_bitmap = hDIB24or32bpp;
+            hDIB24or32bpp =
+                FreeImage_Rescale(old_bitmap, config.width, config.height, FILTER_BILINEAR);
+        } else {
+            hDIB24or32bpp = FreeImage_Clone(hDIB24or32bpp);
+        }
+        // 2. check bpp and convert to 24bpp
+        int bpp = FreeImage_GetBPP(hDIB24or32bpp);
+        FIBITMAP* hDIB24bpp = nullptr;
+        hDIB24bpp = hDIB24or32bpp;
+        std::vector<std::pair<int, int>> transparent_list;
+        if (bpp == 32) {
+            if (discard_alpha) {
+                hDIB24bpp = FreeImage_ConvertTo24Bits(hDIB24or32bpp);
+            } else {
+                // has alpha
+                hDIB24bpp = FreeImage_Allocate(config.width, config.height, 24);
+                RGBQUAD src_color;
+                for (int i = config.height - 1; i >= 0; i--)
+                    for (int j = 0; j < config.width; j++)
+                    {
+                        FreeImage_GetPixelColor(hDIB24or32bpp, j, i, &src_color);
+                        if (0 != src_color.rgbReserved)
+                        {
+                            // if pixel is not transparent, assign directly
+                            FreeImage_SetPixelColor(hDIB24bpp, j, i, &src_color);
+                        }
+                        else
+                        {
+                            // if pixel is transparent, assign (0,0,0)
+                            // and record transparent index position
+                            src_color.rgbRed = 0;
+                            src_color.rgbGreen = 0;
+                            src_color.rgbBlue = 0;
+                            transparent_list.emplace_back(j, i);
+                            FreeImage_SetPixelColor(hDIB24bpp, j, i, &src_color);
+                        }
+                    }
+            }
+        }
+
+        // 3. make palette image.  wu has lower quality, nn has better quality
+        // 共有256个palette入口，这里只使用255个，剩余一个给透明通道。
+        FIBITMAP* hDIB8bpp = FreeImage_ColorQuantizeEx(hDIB24bpp, method, 255);
+        // expected transparent color index
+        BYTE transparent_entry = 255; 
+        // make a transparency table
+        BYTE transparency_table[256];
+        for (int i = 0; i < 255; i++)
+        {
+            transparency_table[i] = 0xFF;
+        }
+        transparency_table[transparent_entry] = 0x00;
+        FreeImage_SetTransparencyTable(hDIB8bpp, transparency_table, 256);
+        // set these transparent pixels to transparent_entry index.
+        for (const auto& m : transparent_list)
+            FreeImage_SetPixelIndex(hDIB8bpp, m.first, m.second, &transparent_entry);
+        // clear
+        FreeImage_Unload(hDIB24or32bpp);
+        if (hDIB24bpp != nullptr && hDIB24bpp != hDIB24or32bpp) FreeImage_Unload(hDIB24bpp);
+
+        return hDIB8bpp;
+    }
+
+    GifMakerConfig config;
+    double current_frame_time = 0.0f;  // ms
+    double step_frame_time = 0.0f;
+    uint64_t current_frame_ms = 0;  // ms
+    FIMULTIBITMAP* multi = nullptr;
+    std::set<FIBITMAP*> bitmaps;
+};

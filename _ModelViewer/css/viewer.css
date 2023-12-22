@@ -1,0 +1,126 @@
+body {
+  /*显示模式*/
+  /* display: flex; */
+
+  /*位置大小*/
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+
+  /*颜色*/
+  background: #000000;
+
+  /*边框*/
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  /*可选性：默认不可选*/
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /*滚动条*/
+  overflow: hidden;
+}
+
+#viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+button#export_scene {
+  position: absolute;
+  bottom: 30px;
+  right: 60px;
+  z-index: 30;
+  width:120px;
+  height:40px;
+  display:inline-block;
+  border-radius: 10px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input#uploadGameBoardfiles {
+  position: absolute;
+  top: 30px;
+  left: 60px;
+  z-index: 31;
+  width:160px;
+  height:40px;
+  display:inline-block;
+  border-radius: 10px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+button#open_scene {
+  position: absolute;
+  bottom: 30px;
+  left: 60px;
+  z-index: 30;
+  width:120px;
+  height:40px;
+  display:inline-block;
+  border-radius: 10px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+button#focus_scene {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  z-index: 30;
+  width:120px;
+  height:40px;
+  display:inline-block;
+  border-radius: 10px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+span#fps {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 30;
+  color: #ffffff;
+}
+
+span#polygon {
+  position: absolute;
+  left: 10px;
+  top: 40px;
+  z-index: 30;
+  color: #ffffff;
+}
+
+input#sceneNameInput
+{
+  position: absolute;
+  bottom: 32px;
+  left: 182px;
+  width:200px;
+  height:30px;
+  display:inline-block;
+}
