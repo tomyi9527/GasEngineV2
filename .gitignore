@@ -1,0 +1,39 @@
+tm/
+output/
+
+# assets
+assets/**/gas[12]/
+assets/**/linkgas2/
+assets/**/*.converted/
+assets/**/*converted*/
+assets/**/*.fbm/
+
+.vscode
+
+# FBXConverter
+FBXConverter/obj/
+FBXConverter/FBXConverter/obj/
+FBXConverter/x64/
+FBXConverter/.vs/
+FBXConverter/FBXConverter/GLTFExporter
+FBXConverter/FBXConverter/zlog
+FBXConverter/FBXConverter.VC.db
+FBXConverter/FBXConverter.VC.VC.opendb
+FBXConverter/UpgradeLog.htm
+
+# compiler
+compiler/Debug
+compiler/Release
+compiler/*.txt
+compiler/x64
+compiler/.vs
+*.filters
+*.user
+
+build/files.txt
+build/dist
+
+# node_modules
+_ModelEditorV2/node_modules
+_ArtHub3DViewerDev/node_modules
+_ArtHub3DViewerDev/dist
