@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{11E67270-D765-48CE-B2DB-D2D3C1117D8D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>FBXConverter</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\FBX\FBX SDK\2016.1.2\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\FBX\FBX SDK\2016.1.2\lib\vs2015\x86\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBMCT</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_DEBUG;NOMINMAX;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)FBXSDK2020_0_1\include;$(ProjectDir)zlib-1.2.8;$(ProjectDir)TootleLib;$(ProjectDir)TootleLib\include;$(ProjectDir)TootleLib\RayTracer;$(ProjectDir)TootleLib\RayTracer\Math;$(ProjectDir)TootleLib\RayTracer\JRT;$(ProjectDir)tristripper;$(ProjectDir)tristripper\include;$(ProjectDir)NvTriStrip;$(ProjectDir)libtga-1.0.1;$(ProjectDir)TexturePipeline;$(ProjectDir)lpng1627;$(ProjectDir)MAX\glm-0.9.9.8\glm;$(ProjectDir)MAX\compoundfilereader\src\include;$(ProjectDir)MAX\src;$(ProjectDir)MAX;$(ProjectDir)optimization;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)FBXSDK2020_0_1\lib\vs2017\x64\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libxml2-mt.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(SolutionDir)..\build\FBXConverter_debug.exe</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\FBX\FBX SDK\2016.1.2\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\FBX\FBX SDK\2016.1.2\lib\vs2015\x86\release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBMCT</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;NOMINMAX;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)FBXSDK2020_0_1\include;$(ProjectDir)zlib-1.2.8;$(ProjectDir)TootleLib;$(ProjectDir)TootleLib\include;$(ProjectDir)TootleLib\RayTracer;$(ProjectDir)TootleLib\RayTracer\Math;$(ProjectDir)TootleLib\RayTracer\JRT;$(ProjectDir)tristripper;$(ProjectDir)tristripper\include;$(ProjectDir)NvTriStrip;$(ProjectDir)libtga-1.0.1;$(ProjectDir)MAX\src;$(ProjectDir)MAX;$(ProjectDir)MAX\compoundfilereader\src\include;$(ProjectDir)MAX\glm-0.9.9.8\glm;$(ProjectDir)TexturePipeline;$(ProjectDir)lpng1627;$(ProjectDir)optimization;$(ProjectDir)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)FBXSDK2020_0_1\lib\vs2017\x64\release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libxml2-mt.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(SolutionDir)..\build\FBXConverter_release.exe</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AssistantFunctions.h" />
+    <ClInclude Include="cJSON\cJSON.h" />
+    <ClInclude Include="cJSON\cJSON_Utils.h" />
+    <ClInclude Include="CommonStruct.h" />
+    <ClInclude Include="Common\AnimationUtility.h" />
+    <ClInclude Include="Common\Common.h" />
+    <ClInclude Include="Common\DebugHelper.h" />
+    <ClInclude Include="Common\DisplayAnimation.h" />
+    <ClInclude Include="Common\DisplayCommon.h" />
+    <ClInclude Include="Common\GeometryUtility.h" />
+    <ClInclude Include="Common\Utils.h" />
+    <ClInclude Include="getopt_win.h" />
+    <ClInclude Include="jpeg-6b\jchuff.h" />
+    <ClInclude Include="jpeg-6b\jconfig.h" />
+    <ClInclude Include="jpeg-6b\jdct.h" />
+    <ClInclude Include="jpeg-6b\jdhuff.h" />
+    <ClInclude Include="jpeg-6b\jerror.h" />
+    <ClInclude Include="jpeg-6b\jinclude.h" />
+    <ClInclude Include="jpeg-6b\jmemsys.h" />
+    <ClInclude Include="jpeg-6b\jmorecfg.h" />
+    <ClInclude Include="jpeg-6b\jpegint.h" />
+    <ClInclude Include="jpeg-6b\jpeglib.h" />
+    <ClInclude Include="jpeg-6b\jversion.h" />
+    <ClInclude Include="JSONFileWriter.h" />
+    <ClInclude Include="libtga-1.0.1\tga.h" />
+    <ClInclude Include="libtga-1.0.1\tgaconfig.h" />
+    <ClInclude Include="lpng1627\png.h" />
+    <ClInclude Include="lpng1627\pngconf.h" />
+    <ClInclude Include="lpng1627\pngdebug.h" />
+    <ClInclude Include="lpng1627\pnginfo.h" />
+    <ClInclude Include="lpng1627\pnglibconf.h" />
+    <ClInclude Include="lpng1627\pngpriv.h" />
+    <ClInclude Include="lpng1627\pngstruct.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MAX\encoding_conv.h" />
+    <ClInclude Include="MAX\max_reader.h" />
+    <ClInclude Include="MAX\src\binary_to_printable.h" />
+    <ClInclude Include="MAX\src\bmp.h" />
+    <ClInclude Include="MAX\src\cfb_utils.h" />
+    <ClInclude Include="MAX\src\entry_type.h" />
+    <ClInclude Include="MAX\src\error_printer.h" />
+    <ClInclude Include="MAX\src\json_maker.h" />
+    <ClInclude Include="MAX\src\max_parser.h" />
+    <ClInclude Include="MAX\src\max_structure.h" />
+    <ClInclude Include="MAX\src\node.h" />
+    <ClInclude Include="MAX\src\param_block_types.h" />
+    <ClInclude Include="MAX\src\quat_ext.h" />
+    <ClInclude Include="MMD\BinReader.h" />
+    <ClInclude Include="MMD\MathVector.h" />
+    <ClInclude Include="MMD\PmdConverter.h" />
+    <ClInclude Include="MMD\PmdReader.h" />
+    <ClInclude Include="MMD\PmxReader.h" />
+    <ClInclude Include="MMD\VmdConverter.h" />
+    <ClInclude Include="MMD\VmdReader.h" />
+    <ClInclude Include="ModelDetails.h" />
+    <ClInclude Include="NvTriStrip\NvTriStrip.h" />
+    <ClInclude Include="NvTriStrip\NvTriStripObjects.h" />
+    <ClInclude Include="NvTriStrip\VertexCache.h" />
+    <ClInclude Include="optimization\FBXAnimationExporter_V4.h" />
+    <ClInclude Include="optimization\FBXSceneStructureExporter_V4.h" />
+    <ClInclude Include="optimization\FileWriter.h" />
+    <ClInclude Include="optimization\GAS_V1\GAS_V1_Streamer.h" />
+    <ClInclude Include="optimization\GAS_V2\GAS_V2_Streamer.h" />
+    <ClInclude Include="optimization\GLTF_V2\GLTF_V2_Streamer.h" />
+    <ClInclude Include="optimization\JsonToBin_V4.h" />
+    <ClInclude Include="optimization\MaxMeshLoader.h" />
+    <ClInclude Include="optimization\MAXSceneStructureExporter_V1.h" />
+    <ClInclude Include="optimization\meshLoader.h" />
+    <ClInclude Include="MMD\PmxConverter.h" />
+    <ClInclude Include="optimization\NeonateVertexCompression_V4.h" />
+    <ClInclude Include="optimization\PlayCanvasWriter.h" />
+    <ClInclude Include="optimization\Streamer.h" />
+    <ClInclude Include="PlayCanvasExporter\AnimationsExport.h" />
+    <ClInclude Include="PlayCanvasExporter\AnimationsWriter.h" />
+    <ClInclude Include="PlayCanvasExporter\BinData.h" />
+    <ClInclude Include="PlayCanvasExporter\fbxShow.h" />
+    <ClInclude Include="PlayCanvasExporter\glSpec.h" />
+    <ClInclude Include="PlayCanvasExporter\glTFBin.h" />
+    <ClInclude Include="PlayCanvasExporter\jsonScene.h" />
+    <ClInclude Include="PlayCanvasExporter\MeshVertex.h" />
+    <ClInclude Include="PlayCanvasExporter\PlayCanvasExporter.h" />
+    <ClInclude Include="PlayCanvasExporter\SkinWriter.h" />
+    <ClInclude Include="rapidjson\allocators.h" />
+    <ClInclude Include="rapidjson\cursorstreamwrapper.h" />
+    <ClInclude Include="rapidjson\document.h" />
+    <ClInclude Include="rapidjson\encodedstream.h" />
+    <ClInclude Include="rapidjson\encodings.h" />
+    <ClInclude Include="rapidjson\error\en.h" />
+    <ClInclude Include="rapidjson\error\error.h" />
+    <ClInclude Include="rapidjson\filereadstream.h" />
+    <ClInclude Include="rapidjson\filewritestream.h" />
+    <ClInclude Include="rapidjson\fwd.h" />
+    <ClInclude Include="rapidjson\internal\biginteger.h" />
+    <ClInclude Include="rapidjson\internal\diyfp.h" />
+    <ClInclude Include="rapidjson\internal\dtoa.h" />
+    <ClInclude Include="rapidjson\internal\ieee754.h" />
+    <ClInclude Include="rapidjson\internal\itoa.h" />
+    <ClInclude Include="rapidjson\internal\meta.h" />
+    <ClInclude Include="rapidjson\internal\pow10.h" />
+    <ClInclude Include="rapidjson\internal\regex.h" />
+    <ClInclude Include="rapidjson\internal\stack.h" />
+    <ClInclude Include="rapidjson\internal\strfunc.h" />
+    <ClInclude Include="rapidjson\internal\strtod.h" />
+    <ClInclude Include="rapidjson\internal\swap.h" />
+    <ClInclude Include="rapidjson\istreamwrapper.h" />
+    <ClInclude Include="rapidjson\memorybuffer.h" />
+    <ClInclude Include="rapidjson\memorystream.h" />
+    <ClInclude Include="rapidjson\msinttypes\inttypes.h" />
+    <ClInclude Include="rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="rapidjson\pointer.h" />
+    <ClInclude Include="rapidjson\prettywriter.h" />
+    <ClInclude Include="rapidjson\rapidjson.h" />
+    <ClInclude Include="rapidjson\reader.h" />
+    <ClInclude Include="rapidjson\schema.h" />
+    <ClInclude Include="rapidjson\stream.h" />
+    <ClInclude Include="rapidjson\stringbuffer.h" />
+    <ClInclude Include="rapidjson\writer.h" />
+    <ClInclude Include="SceneNode.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="STL\ParsingUtility.h" />
+    <ClInclude Include="STL\STLConverter.h" />
+    <ClInclude Include="TextureMap.h" />
+    <ClInclude Include="TexturePipeline\TexturePipeline.h" />
+    <ClInclude Include="TootleLib\aligned_malloc.h" />
+    <ClInclude Include="TootleLib\bbox.h" />
+    <ClInclude Include="TootleLib\cloud.h" />
+    <ClInclude Include="TootleLib\clustering.h" />
+    <ClInclude Include="TootleLib\color.h" />
+    <ClInclude Include="TootleLib\error.h" />
+    <ClInclude Include="TootleLib\feedback.h" />
+    <ClInclude Include="TootleLib\fit.h" />
+    <ClInclude Include="TootleLib\heap.h" />
+    <ClInclude Include="TootleLib\include\tootlelib.h" />
+    <ClInclude Include="TootleLib\matrix.h" />
+    <ClInclude Include="TootleLib\mesh.h" />
+    <ClInclude Include="TootleLib\overdraw.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTBoundingBox.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTCamera.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTCommon.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTCore.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTCoreUtils.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTH2KDTreeBuilder.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTHeuristicKDTreeBuilder.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTKDTree.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTKDTreeBuilder.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTMesh.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTOrthoCamera.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTPPMImage.h" />
+    <ClInclude Include="TootleLib\RayTracer\JRT\JRTTriangleIntersection.h" />
+    <ClInclude Include="TootleLib\RayTracer\Math\JML.h" />
+    <ClInclude Include="TootleLib\RayTracer\Math\JMLFuncs.h" />
+    <ClInclude Include="TootleLib\RayTracer\Math\JMLMatrix.h" />
+    <ClInclude Include="TootleLib\RayTracer\Math\JMLScalar.h" />
+    <ClInclude Include="TootleLib\RayTracer\Math\JMLSSEVec.h" />
+    <ClInclude Include="TootleLib\RayTracer\Math\JMLVec2.h" />
+    <ClInclude Include="TootleLib\RayTracer\Math\JMLVec3.h" />
+    <ClInclude Include="TootleLib\RayTracer\TootleRaytracer.h" />
+    <ClInclude Include="TootleLib\scalar.h" />
+    <ClInclude Include="TootleLib\soup.h" />
+    <ClInclude Include="TootleLib\souptomesh.h" />
+    <ClInclude Include="TootleLib\Stripifier.h" />
+    <ClInclude Include="TootleLib\Timer.h" />
+    <ClInclude Include="TootleLib\TootlePCH.h" />
+    <ClInclude Include="TootleLib\triorder.h" />
+    <ClInclude Include="TootleLib\vector.h" />
+    <ClInclude Include="TootleLib\viewpoints.h" />
+    <ClInclude Include="tristripper\base_exception.h" />
+    <ClInclude Include="tristripper\high_res_timer.h" />
+    <ClInclude Include="tristripper\include\detail\cache_simulator.h" />
+    <ClInclude Include="tristripper\include\detail\connectivity_graph.h" />
+    <ClInclude Include="tristripper\include\detail\graph_array.h" />
+    <ClInclude Include="tristripper\include\detail\heap_array.h" />
+    <ClInclude Include="tristripper\include\detail\policy.h" />
+    <ClInclude Include="tristripper\include\detail\types.h" />
+    <ClInclude Include="tristripper\include\public_types.h" />
+    <ClInclude Include="tristripper\include\tri_stripper.h" />
+    <ClInclude Include="zlib-1.2.8\crc32.h" />
+    <ClInclude Include="zlib-1.2.8\deflate.h" />
+    <ClInclude Include="zlib-1.2.8\gzguts.h" />
+    <ClInclude Include="zlib-1.2.8\inffast.h" />
+    <ClInclude Include="zlib-1.2.8\inffixed.h" />
+    <ClInclude Include="zlib-1.2.8\inflate.h" />
+    <ClInclude Include="zlib-1.2.8\inftrees.h" />
+    <ClInclude Include="zlib-1.2.8\trees.h" />
+    <ClInclude Include="zlib-1.2.8\zconf.h" />
+    <ClInclude Include="zlib-1.2.8\zlib.h" />
+    <ClInclude Include="zlib-1.2.8\zutil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssistantFunctions.cpp" />
+    <ClCompile Include="cJSON\cJSON.c" />
+    <ClCompile Include="cJSON\cJSON_Utils.c" />
+    <ClCompile Include="Common\AnimationUtility.cxx" />
+    <ClCompile Include="Common\Common.cxx" />
+    <ClCompile Include="Common\DebugHelper.cpp" />
+    <ClCompile Include="Common\DisplayAnimation.cxx" />
+    <ClCompile Include="Common\DisplayCommon.cxx" />
+    <ClCompile Include="Common\GeometryUtility.cxx" />
+    <ClCompile Include="Common\Utils.cpp" />
+    <ClCompile Include="FBXConverter.cpp" />
+    <ClCompile Include="getopt_win.c" />
+    <ClCompile Include="jpeg-6b\jcapimin.c" />
+    <ClCompile Include="jpeg-6b\jcapistd.c" />
+    <ClCompile Include="jpeg-6b\jccoefct.c" />
+    <ClCompile Include="jpeg-6b\jccolor.c" />
+    <ClCompile Include="jpeg-6b\jcdctmgr.c" />
+    <ClCompile Include="jpeg-6b\jchuff.c" />
+    <ClCompile Include="jpeg-6b\jcinit.c" />
+    <ClCompile Include="jpeg-6b\jcmainct.c" />
+    <ClCompile Include="jpeg-6b\jcmarker.c" />
+    <ClCompile Include="jpeg-6b\jcmaster.c" />
+    <ClCompile Include="jpeg-6b\jcomapi.c" />
+    <ClCompile Include="jpeg-6b\jcparam.c" />
+    <ClCompile Include="jpeg-6b\jcphuff.c" />
+    <ClCompile Include="jpeg-6b\jcprepct.c" />
+    <ClCompile Include="jpeg-6b\jcsample.c" />
+    <ClCompile Include="jpeg-6b\jctrans.c" />
+    <ClCompile Include="jpeg-6b\jdapimin.c" />
+    <ClCompile Include="jpeg-6b\jdapistd.c" />
+    <ClCompile Include="jpeg-6b\jdatadst.c" />
+    <ClCompile Include="jpeg-6b\jdatasrc.c" />
+    <ClCompile Include="jpeg-6b\jdcoefct.c" />
+    <ClCompile Include="jpeg-6b\jdcolor.c" />
+    <ClCompile Include="jpeg-6b\jddctmgr.c" />
+    <ClCompile Include="jpeg-6b\jdhuff.c" />
+    <ClCompile Include="jpeg-6b\jdinput.c" />
+    <ClCompile Include="jpeg-6b\jdmainct.c" />
+    <ClCompile Include="jpeg-6b\jdmarker.c" />
+    <ClCompile Include="jpeg-6b\jdmaster.c" />
+    <ClCompile Include="jpeg-6b\jdmerge.c" />
+    <ClCompile Include="jpeg-6b\jdphuff.c" />
+    <ClCompile Include="jpeg-6b\jdpostct.c" />
+    <ClCompile Include="jpeg-6b\jdsample.c" />
+    <ClCompile Include="jpeg-6b\jdtrans.c" />
+    <ClCompile Include="jpeg-6b\jerror.c" />
+    <ClCompile Include="jpeg-6b\jfdctflt.c" />
+    <ClCompile Include="jpeg-6b\jfdctfst.c" />
+    <ClCompile Include="jpeg-6b\jfdctint.c" />
+    <ClCompile Include="jpeg-6b\jidctflt.c" />
+    <ClCompile Include="jpeg-6b\jidctfst.c" />
+    <ClCompile Include="jpeg-6b\jidctint.c" />
+    <ClCompile Include="jpeg-6b\jidctred.c" />
+    <ClCompile Include="jpeg-6b\jmemansi.c" />
+    <ClCompile Include="jpeg-6b\jmemmgr.c" />
+    <ClCompile Include="jpeg-6b\jquant1.c" />
+    <ClCompile Include="jpeg-6b\jquant2.c" />
+    <ClCompile Include="jpeg-6b\jutils.c" />
+    <ClCompile Include="JSONFileWriter.cpp" />
+    <ClCompile Include="libtga-1.0.1\tga.c" />
+    <ClCompile Include="libtga-1.0.1\tgaread.c" />
+    <ClCompile Include="libtga-1.0.1\tgawrite.c" />
+    <ClCompile Include="lpng1627\png.c" />
+    <ClCompile Include="lpng1627\pngerror.c" />
+    <ClCompile Include="lpng1627\pngget.c" />
+    <ClCompile Include="lpng1627\pngmem.c" />
+    <ClCompile Include="lpng1627\pngpread.c" />
+    <ClCompile Include="lpng1627\pngread.c" />
+    <ClCompile Include="lpng1627\pngrio.c" />
+    <ClCompile Include="lpng1627\pngrtran.c" />
+    <ClCompile Include="lpng1627\pngrutil.c" />
+    <ClCompile Include="lpng1627\pngset.c" />
+    <ClCompile Include="lpng1627\pngtrans.c" />
+    <ClCompile Include="lpng1627\pngwio.c" />
+    <ClCompile Include="lpng1627\pngwrite.c" />
+    <ClCompile Include="lpng1627\pngwtran.c" />
+    <ClCompile Include="lpng1627\pngwutil.c" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MAX\encoding_conv.cpp" />
+    <ClCompile Include="MAX\max_reader.cpp" />
+    <ClCompile Include="MAX\src\binary_to_printable.cpp" />
+    <ClCompile Include="MAX\src\bmp.cpp" />
+    <ClCompile Include="MAX\src\max_structure.cpp" />
+    <ClCompile Include="MAX\src\node.cpp" />
+    <ClCompile Include="MMD\PmdConverter.cpp" />
+    <ClCompile Include="MMD\PmdReader.cpp" />
+    <ClCompile Include="MMD\PmxReader.cpp" />
+    <ClCompile Include="MMD\VmdConverter.cpp" />
+    <ClCompile Include="MMD\VmdReader.cpp" />
+    <ClCompile Include="ModelDetails.cpp" />
+    <ClCompile Include="NvTriStrip\NvTriStrip.cpp" />
+    <ClCompile Include="NvTriStrip\NvTriStripObjects.cpp" />
+    <ClCompile Include="NvTriStrip\VertexCache.cpp" />
+    <ClCompile Include="optimization\FBXAnimationExporter_V4.cpp" />
+    <ClCompile Include="optimization\FBXSceneStructureExporter_V4.cpp" />
+    <ClCompile Include="optimization\FileWriter.cpp" />
+    <ClCompile Include="optimization\GAS_V1\GAS_V1_Streamer.cpp" />
+    <ClCompile Include="optimization\GAS_V2\GAS_V2_Streamer.cpp" />
+    <ClCompile Include="optimization\GLTF_V2\GLTF_V2_Streamer.cpp" />
+    <ClCompile Include="optimization\JsonToBin_V4.cpp" />
+    <ClCompile Include="optimization\MaxMeshLoader.cpp" />
+    <ClCompile Include="optimization\MAXSceneStructureExporter_V1.cpp" />
+    <ClCompile Include="optimization\meshLoader.cpp" />
+    <ClCompile Include="optimization\NeonateVertexCompression_V4.cpp" />
+    <ClCompile Include="MMD\PmxConverter.cpp" />
+    <ClCompile Include="optimization\PlayCanvasWriter.cpp" />
+    <ClCompile Include="optimization\Streamer.cpp" />
+    <ClCompile Include="PlayCanvasExporter\AnimationsExport.cpp" />
+    <ClCompile Include="PlayCanvasExporter\AnimationsWriter.cpp" />
+    <ClCompile Include="PlayCanvasExporter\BinData.cpp" />
+    <ClCompile Include="PlayCanvasExporter\fbxShow.cpp" />
+    <ClCompile Include="PlayCanvasExporter\glTFBin.cpp" />
+    <ClCompile Include="PlayCanvasExporter\MeshVertex.cpp" />
+    <ClCompile Include="PlayCanvasExporter\PlayCanvasExporter.cpp" />
+    <ClCompile Include="PlayCanvasExporter\SkinWriter.cpp" />
+    <ClCompile Include="SceneNode.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="STL\ParsingUtility.cpp" />
+    <ClCompile Include="STL\STLConverter.cpp" />
+    <ClCompile Include="TextureMap.cpp" />
+    <ClCompile Include="TexturePipeline\TexturePipeline.cpp" />
+    <ClCompile Include="TootleLib\aligned_malloc.cpp" />
+    <ClCompile Include="TootleLib\clustering.cpp" />
+    <ClCompile Include="TootleLib\error.c" />
+    <ClCompile Include="TootleLib\feedback.cpp" />
+    <ClCompile Include="TootleLib\fit.cpp" />
+    <ClCompile Include="TootleLib\heap.c" />
+    <ClCompile Include="TootleLib\overdraw.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTBoundingBox.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTCamera.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTCore.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTCoreUtils.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTH2KDTreeBuilder.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTHeuristicKDTreeBuilder.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTKDTree.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTKDTreeBuilder.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTMesh.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTOrthoCamera.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTPPMImage.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\JRT\JRTTriangleIntersection.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\Math\JMLFuncs.cpp" />
+    <ClCompile Include="TootleLib\RayTracer\TootleRaytracer.cpp" />
+    <ClCompile Include="TootleLib\soup.cpp" />
+    <ClCompile Include="TootleLib\souptomesh.cpp" />
+    <ClCompile Include="TootleLib\Stripifier.cpp" />
+    <ClCompile Include="TootleLib\Timer.cpp" />
+    <ClCompile Include="TootleLib\tootlelib.cpp" />
+    <ClCompile Include="TootleLib\triorder.cpp" />
+    <ClCompile Include="tristripper\connectivity_graph.cpp" />
+    <ClCompile Include="tristripper\high_res_timer.cpp" />
+    <ClCompile Include="tristripper\policy.cpp" />
+    <ClCompile Include="tristripper\tri_stripper.cpp" />
+    <ClCompile Include="zlib-1.2.8\adler32.c" />
+    <ClCompile Include="zlib-1.2.8\compress.c" />
+    <ClCompile Include="zlib-1.2.8\crc32.c" />
+    <ClCompile Include="zlib-1.2.8\deflate.c" />
+    <ClCompile Include="zlib-1.2.8\gzclose.c" />
+    <ClCompile Include="zlib-1.2.8\gzlib.c" />
+    <ClCompile Include="zlib-1.2.8\gzread.c" />
+    <ClCompile Include="zlib-1.2.8\gzwrite.c" />
+    <ClCompile Include="zlib-1.2.8\infback.c" />
+    <ClCompile Include="zlib-1.2.8\inffast.c" />
+    <ClCompile Include="zlib-1.2.8\inflate.c" />
+    <ClCompile Include="zlib-1.2.8\inftrees.c" />
+    <ClCompile Include="zlib-1.2.8\trees.c" />
+    <ClCompile Include="zlib-1.2.8\uncompr.c" />
+    <ClCompile Include="zlib-1.2.8\zutil.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

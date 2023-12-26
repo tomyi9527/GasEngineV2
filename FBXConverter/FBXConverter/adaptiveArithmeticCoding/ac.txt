@@ -1,0 +1,77 @@
+Arithmetic Coding Library
+-------------------------
+
+Fred Wheeler
+Feb 24, 1996
+
+This package was adapted from the program in "Arithmetic Coding for
+Data Compression", by Ian H. Witten, Radford M. Neal and John
+G. Cleary, Communications of the ACM, June 1987, Vol. 30, No. 6.
+(Source at ftp://ftp.cpsc.ucalgary.ca/pub/projects/ar.cod/cacm-87.shar)
+
+This version uses structures for the coder, decoder and data model
+instead of global variables.  This object oriented approach allows you
+to simultaneously use several arithmetic coders, each streaming bits
+to a different file and to have several models for each coder, each
+with a possibly different number of symbols and frequency table.
+
+This package does not come with models for character, word and bit
+encoding, like the Witten Neal Cleary package.  You must create your
+own model (probability table).
+
+Encoders can be given a file to which the bits are stored.  If no file
+is given, the encoder will simply count the bits that would have been
+stored.  Decoders must be given a file to work.
+
+Models may be initiated with a frequency table, or the table will
+default to uniform (all 1's).  Regardless of initiation, the models
+can be adaptive or fixed.
+
+Unlike the original version by Witten et. al., symbol indices start at
+0, not 1.
+
+The program is written in ANSI C.
+
+I owe credit to Amir Said, who has also written a similar package
+based on the Witten Neal Cleary package.
+
+If you find this program useful, please send me an e-mail.
+
+ACDEMO
+------
+
+The program ACDEMO is a simple demonstration of the multiple model
+arithmetic codec defined in ac.h and ac.c.  ACDEMO encodes a few
+random streams and then decodes them, making sure that the original
+data is recovered.  To be useful, ac.h and ac.c must be incorporated
+into another compression program.
+
+To compile and run ACDEMO with gcc use:
+  gcc -Wall -O2 -c ac.c
+  gcc -Wall -O2 -c acdemo.c
+  gcc -o acdemo ac.o acdemo.o
+  ./acdemo
+
+The most common problem encountered is the compiler not finding
+random() and srandom(), used in acdemo.c.  See the comments in
+acdemo.c to fix this.
+
+Change Log
+----------
+
+Sep 10, 1999 by Fred Wheeler
+In ac.c removed declaration for main() and declarations for random
+functions.
+
+Jan 20, 1999 by Fred Wheeler
+In ac.c use "b" in fopen so files are opened in binary mode.  This is
+necessary for the code to work on a PC.
+
+Jun 15, 2000 by Fred Wheeler
+Use macros for random/rand and srandom/srand and comment their usage
+
+Files
+-----
+ac.c: source for all arithmetic coding functions
+ac.h: header file for any file using the arithmetic coding library
+acdemo.c: an example
