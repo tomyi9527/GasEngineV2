@@ -1,6 +1,6 @@
 # Getting Started
 ## **配置测试环境**
-* git clone http://git.code.oa.com/arthub/GASEngineV2.git
+* git clone git@github.com:tomyi9527/GasEngineV2.git
 * git checkout develop
 * Install nginx and map the project directory in nginx.conf as below:
   
